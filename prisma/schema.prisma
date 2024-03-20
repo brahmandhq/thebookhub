@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Book {
+  id              Int      @id @default(autoincrement())
+  bookId          String
+  name            String
+  description     String
+  duration        String
+  language        String
+  copyright_year  Int
+  url_librivox    String
+  chapters        Chapter[]
+  authorId        Int
+  author          Author   @relation(fields: [authorId], references: [id])
+}
+
+model Chapter {
+  id       Int    @id @default(autoincrement())
+  book     Book   @relation(fields: [bookId], references: [id])
+  bookId   Int
+  link     String
+  title    String
+  reader   String
+  duration String
+}
+
+model Author {
+  id         Int      @id @default(autoincrement())
+  authorId   String
+  firstName  String
+  lastName   String
+  dob        String?      // Consider using DateTime
+  dod        String?     // Consider using DateTime and making it optional
+  books      Book[]   // This establishes the reverse relation
+}
