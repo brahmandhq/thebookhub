@@ -5,7 +5,7 @@
 // import LikeButton from "@/components/LikeButton";
 // import useOnPlay from "@/hooks/useOnPlay";
 import { GiDuration } from "react-icons/gi";
-
+import { useRouter } from "next/navigation";
 interface SearchContentProps {
   books: any;
 }
@@ -14,6 +14,13 @@ const SearchContent: React.FC<SearchContentProps> = ({
   books
 }) => {
 //   const onPlay = useOnPlay(books);
+
+const router = useRouter()
+
+const handleClick = (id: any) => {
+  router.push(`/${id}`)
+}
+
 
   if (books?.length === 0 || !books) {
     return (
@@ -51,6 +58,7 @@ const SearchContent: React.FC<SearchContentProps> = ({
           outline-none 
 
         "
+        onClick={() => handleClick(book.id)}
         > <div 
         className="
           relative 

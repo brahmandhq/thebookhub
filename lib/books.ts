@@ -65,7 +65,11 @@ export const getBookById = async (id:any) => {
     try {
         const book = await prisma.book.findUnique({
             where: { id: parseInt(id as string) },
-            include: {chapters : true}
+            include: {
+                author: true,
+                chapters : true,
+                
+            }
           });
     
           return book 

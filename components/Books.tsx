@@ -3,7 +3,7 @@
 import Image from "next/image";
 import PlayButton from "./PlayButton";
 import Tag from "./Tag";
-
+import { useRouter } from "next/navigation";
 // import useLoadImage from "@/hooks/useLoadImage";
 // import { Song } from "@/types";
 
@@ -16,13 +16,17 @@ import Tag from "./Tag";
 
 const Books: React.FC<any> = ({
   data,
-  onClick
+
 }) => {
-//   const imagePath = useLoadImage(data);
+const router = useRouter()
+
+const handleClick = () => {
+  router.push(`/${data.id}`)
+}
 
   return ( 
     <div
-      onClick={() => onClick(data.id)} 
+      onClick={handleClick} 
       className="
         relative 
         group 

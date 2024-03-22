@@ -60,7 +60,7 @@ export default async function Home() {
               image="/images/liked.png" 
               href="liked" 
             />
-           å
+           
           </div>
           </div>
       </Header>

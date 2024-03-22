@@ -38,7 +38,7 @@ const PageContent: React.FC<any> = ({
     >
       {books.map((item: { id: Key | null | undefined; }) => (
         <Books
-        //   onClick={} 
+     
           key={item.id} 
           data={item}
         />
