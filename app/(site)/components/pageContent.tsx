@@ -1,6 +1,7 @@
 "use client";
 
 import Books from "@/components/Books";
+import useOnPlay from "@/hooks/useOnPlay";
 import { Key } from "react";
 
 // import { Song } from "@/types";
@@ -11,7 +12,8 @@ import { Key } from "react";
 const PageContent: React.FC<any> = ({
   books
 }) => {
-//   const onPlay = useOnPlay(books);
+
+
 
   if (books.length === 0) {
     return (
@@ -36,9 +38,11 @@ const PageContent: React.FC<any> = ({
         mb-[10vh]
       "
     >
-      {books.map((item: { id: Key | null | undefined; }) => (
+      {books.map((item: {
+        chapters: any; id: Key | null | undefined; 
+}) => (
         <Books
-     
+      
           key={item.id} 
           data={item}
         />

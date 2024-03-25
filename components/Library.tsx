@@ -28,10 +28,10 @@ const Library = () => {
     
     </div>
     <div className="flex flex-col gap-y-2 mt-4 px-3">
-      {books.map((item) => (
+      {books.map((item, index) => (
         <BookItem
         //   onClick={(id: string) => onPlay(id)} 
-          key={item.title} 
+          key={index} 
           data={item}
         />
       ))}

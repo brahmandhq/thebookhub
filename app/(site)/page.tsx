@@ -1,4 +1,4 @@
-import Books from "../../components/Books";
+
 import Header from "../../components/Header";
 import ListItem from "../../components/ListItem";
 import PageContent from "./components/pageContent";
@@ -6,8 +6,11 @@ import { getBookById, getBooks, getBooksByAuthorOrTitle } from "@/lib/books";
 
 export default async function Home() {
   const books = await getBooks({page:1, limit: 5});
-  console.log("new" ,books);
 
+
+
+// const chaps = await getChapterById(345)
+// console.log("chapsss", chaps)
   // const booksIgot = await getBookById (5);
   // console.log("all books" ,booksIgot, booksIgot);
   return (

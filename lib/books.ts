@@ -1,6 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from "@/utils/prisma";
 
-const prisma = new PrismaClient();
 export const getBooks = async ({ page , limit  } : { page?: string | number | null, limit?: string | number | null } = {}) => {
 
     try {
@@ -12,6 +11,7 @@ export const getBooks = async ({ page , limit  } : { page?: string | number | nu
           take: limit1,
           include: {
             author: true, 
+            chapters: true
         },
         });
       
@@ -60,6 +60,25 @@ export const getBooksByAuthorOrTitle = async (data: string | null | undefined) =
 
 
 }
+export async function getChapterById(bookId: any, chapterId:  any ) {
+   
+    try {
+        const response = await fetch(`/api/chapters/${bookId}/${chapterId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch chapter');
+        }
+        const data = await response.json();
+    
+        return { data };
+
+    }catch(error){
+        console.log("what error" ,error)
+       
+    }
+    
+   
+  }
+
 
 export const getBookById = async (id:any) => {
     try {

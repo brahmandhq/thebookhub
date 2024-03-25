@@ -1,7 +1,8 @@
+"use client"
 import React from 'react'
 import { IoIosTimer } from "react-icons/io";
 const AboutBook = ({data}: {data:any}) => {
-    console.log("At the id", data)
+
   return (
     <div className='flex flex-col items-center md:flex-row md:items-stretch gap-8 p-6'>
         <div className='h-52 w-52 flex-none'>

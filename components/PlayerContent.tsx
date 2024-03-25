@@ -1,109 +1,134 @@
 "use client";
 
-// import useSound from "use-sound";
-import { useEffect, useState } from "react";
+
+import { useEffect, useState, useRef } from "react";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
-import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 
 // import { Song } from "@/types";
 import usePlayer from "@/hooks/usePlayer";
 
 import LikeButton from "./LikeButton";
+import Slider from "./Slider";
+import useBookStore from "@/store/book";
+import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
+import { time } from "console";
 // import MediaItem from "./MediaItem";
 // import Slider from "./Slider";
 
 
-// interface PlayerContentProps {
-//   song: Song;
-//   songUrl: string;
-// }
+interface PlayerContentsProps {
+  id: number;
+    bookId: number;
+    link: string;
+    title: string;
+    reader: string;
+    duration: string;
+}
 
-const PlayerContent = ({ 
-  song, 
-  songUrl
-}: any) => {
-  const player = usePlayer();
+interface PlayerContentProps {
+  chapter: PlayerContentsProps 
+}
+
+const PlayerContent: React.FC<PlayerContentProps> = ({ 
+  chapter
+}) => {
+  const currentBook = useBookStore()
   const [volume, setVolume] = useState(1);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [elapsed, setElapsed] = useState(0);
+  const [timeRemanaining, setTimeRemanaining] = useState(0);
+const audioPlayer = useRef()
 
+useEffect(() => {
+
+},[isPlaying])
   const Icon = isPlaying ? BsPauseFill : BsPlayFill;
+
+
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
 
-//   const onPlayNext = () => {
-//     if (player.ids.length === 0) {
-//       return;
-//     }
+  const onPlayNext = () => {
+    if (currentBook.ids.length === 0) {
+      return;
+    }
 
-//     const currentIndex = player.ids.findIndex((id) => id === player.activeId);
-//     const nextSong = player.ids[currentIndex + 1];
+    const currentIndex = currentBook.ids.findIndex((id) => id === currentBook.activeId);
+    const nextSong = currentBook.ids[currentIndex + 1];
 
-//     if (!nextSong) {
-//       return player.setId(player.ids[0]);
-//     }
+    if (!nextSong) {
+      return currentBook.setId(currentBook.ids[0]);
+    }
 
-//     player.setId(nextSong);
-//   }
+    currentBook.setId(nextSong);
+  }
 
-//   const onPlayPrevious = () => {
-//     if (player.ids.length === 0) {
-//       return;
-//     }
+  const onPlayPrevious = () => {
+    if (currentBook.ids.length === 0) {
+      return;
+    }
 
-//     const currentIndex = player.ids.findIndex((id) => id === player.activeId);
-//     const previousSong = player.ids[currentIndex - 1];
+    const currentIndex = currentBook.ids.findIndex((id) => id === currentBook.activeId);
+    const previousSong = currentBook.ids[currentIndex - 1];
 
-//     if (!previousSong) {
-//       return player.setId(player.ids[player.ids.length - 1]);
-//     }
+    if (!previousSong) {
+      return currentBook.setId(currentBook.ids[currentBook.ids.length - 1]);
+    }
 
-//     player.setId(previousSong);
-//   }
+    currentBook.setId(previousSong);
+  }
 
-//   const [play, { pause, sound }] = useSound(
-//     songUrl,
-//     { 
-//       volume: volume,
-//       onplay: () => setIsPlaying(true),
-//       onend: () => {
-//         setIsPlaying(false);
-//         onPlayNext();
-//       },
-//       onpause: () => setIsPlaying(false),
-//       format: ['mp3']
-//     }
-//   );
+  function formatTime(time: number) {
+    if(time && !isNaN(time)){
+        const minutes = Math.floor(time / 60) < 10 ? `0${Math.floor(time / 60)}` : Math.floor(time / 60);
+        const seconds = Math.floor(time % 60) < 10 ? `0${Math.floor(time % 60)}` : Math.floor(time % 60);
 
-//   useEffect(() => {
-//     sound?.play();
-    
-//     return () => {
-//       sound?.unload();
-//     }
-//   }, [sound]);
+        return `${minutes}:${seconds}`;
+    }
+    return '00:00';
+}
 
-//   const handlePlay = () => {
-//     if (!isPlaying) {
-//       play();
-//     } else {
-//       pause();
-//     }
-//   }
+  useEffect(() => {
+    if (audioPlayer.current) audioPlayer.current.volume = volume;
+
+
+
+    if(isPlaying){
+      setInterval(() => {
+          const _duration = Math.floor(audioPlayer?.current?.duration);
+          const _elapsed = Math.floor(audioPlayer?.current?.currentTime);
+
+          setTimeRemanaining(_duration);
+          setElapsed(_elapsed);
+      }, 100);
+  }
+  }, [volume]);
+
+  const handlePlay = () => {
+   
+    !isPlaying ? audioPlayer?.current?.play() : audioPlayer?.current?.pause()
+    setIsPlaying(prev => !prev)
+
+  }
 
   const toggleMute = () => {
     if (volume === 0) {
-      setVolume(1);
+      setVolume(0.5);
     } else {
       setVolume(0);
     }
   }
 
   return ( 
-    <div className="grid grid-cols-2 md:grid-cols-3 h-full">
+    <div className="flex flex-col justify-center mt-1  h-full">
+      <audio src={chapter.link} autoPlay={isPlaying} ref={audioPlayer}/>
+      <div className="grid grid-cols-2 md:grid-cols-3 pt-1">
+
+      
         <div className="flex w-full justify-start">
-          <div className="flex items-center gap-x-4">
+          <div className="flex items-center gap-x-4 pl-4">
             {/* <MediaItem data={song} /> */}
-            <LikeButton />
+            {chapter.title}
           </div>
         </div>
 
@@ -118,7 +143,7 @@ const PlayerContent = ({
           "
         >
           <div 
-            onClick={() => {}} 
+            onClick={handlePlay} 
             className="
               h-10
               w-10
@@ -131,7 +156,10 @@ const PlayerContent = ({
               cursor-pointer
             "
           >
-            <Icon size={30} className="text-black" />
+            {
+              isPlaying ? <BsPauseFill size={30} className="text-black" /> : <BsPlayFill size={30} className="text-black" />
+            }
+
           </div>
         </div>
 
@@ -148,7 +176,7 @@ const PlayerContent = ({
           "
         >
           <AiFillStepBackward
-            onClick={() => {}}
+            onClick={onPlayPrevious}
             size={30} 
             className="
               text-neutral-400 
@@ -158,7 +186,7 @@ const PlayerContent = ({
             "
           />
           <div 
-            onClick={() => {}} 
+            onClick={handlePlay} 
             className="
               flex 
               items-center 
@@ -171,10 +199,12 @@ const PlayerContent = ({
               cursor-pointer
             "
           >
-            <Icon size={30} className="text-black" />
+            {
+              isPlaying ? <BsPauseFill size={30} className="text-black" /> : <BsPlayFill size={30} className="text-black" />
+            }
           </div>
           <AiFillStepForward
-            onClick={() => {}}
+            onClick={onPlayNext}
             size={30} 
             className="
               text-neutral-400 
@@ -192,15 +222,29 @@ const PlayerContent = ({
               className="cursor-pointer" 
               size={34} 
             />
-            {/* <Slider 
+    
+            <Slider 
               value={volume} 
               onChange={(value) => setVolume(value)}
-            /> */}
+            />
           </div>
         </div>
+        </div>
+        <div className="flex gap-[1vw] px-4 items-center">
+          <p>{formatTime(elapsed)}</p>
+          <Slider 
+          
+              value={elapsed/100} 
+              max={timeRemanaining/100}
 
+              // onChange={(value) => setVolume(value)}
+            />
+          <p>{formatTime(timeRemanaining)}</p>
+        </div>    
       </div>
    );
 }
  
 export default PlayerContent;
+
+

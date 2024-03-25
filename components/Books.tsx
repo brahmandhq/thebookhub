@@ -9,10 +9,10 @@ import { useRouter } from "next/navigation";
 
 // import PlayButton from "./PlayButton";
 
-// interface SongItemProps {
-//   data: Song;
-//   onClick: (id: string) => void;
-// }
+interface SongItemProps {
+  data: any;
+  // onClick: (id: string) => void;
+}
 
 const Books: React.FC<any> = ({
   data,
@@ -20,13 +20,20 @@ const Books: React.FC<any> = ({
 }) => {
 const router = useRouter()
 
+console.log("at the books", data, "the id to pass", data.chapters[0].id)
+
+
+
 const handleClick = () => {
+
   router.push(`/${data.id}`)
+
+
 }
 
   return ( 
     <div
-      onClick={handleClick} 
+      onClick={ handleClick} 
       className="
         relative 
         group 
