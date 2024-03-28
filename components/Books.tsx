@@ -61,10 +61,10 @@ const handleClick = () => {
           overflow-hidden
         "
       >
-        <Image
+        <img
           className="object-cover"
-          src={ '/images/book1.jpg'}
-          fill
+          src={ data.imageLink ? data.imageLink :  '/images/book1.jpg'}
+         
           alt="Image"
         />
       </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaPlay } from 'react-icons/fa'
-
+import { FaBookOpen } from "react-icons/fa";
 const PlayButton = () => {
   return (
     <button 
@@ -11,14 +11,14 @@ const PlayButton = () => {
           flex 
           items-center 
           justify-center 
-          bg-green-500 
+          bg-amber-700
           p-4 
           drop-shadow-md 
           group-hover:opacity-100 
           hover:scale-110
         "
       >
-        <FaPlay className="text-black" />
+        <FaBookOpen className="text-black" />
       </button>
   )
 }

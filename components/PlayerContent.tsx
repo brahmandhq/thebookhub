@@ -8,7 +8,6 @@ import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 // import { Song } from "@/types";
 import usePlayer from "@/hooks/usePlayer";
 
-import LikeButton from "./LikeButton";
 import Slider from "./Slider";
 import useBookStore from "@/store/book";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";

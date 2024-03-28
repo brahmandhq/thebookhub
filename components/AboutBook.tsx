@@ -6,7 +6,7 @@ const AboutBook = ({data}: {data:any}) => {
   return (
     <div className='flex flex-col items-center md:flex-row md:items-stretch gap-8 p-6'>
         <div className='h-52 w-52 flex-none'>
-            <img src={"/images/book1.jpg"} className='object-cover h-full w-full shadow-[5px_0_30px_0px_rgba(0,0,0,0.3)]'/>
+            <img src={data.imageLink ? data.imageLink : "/images/book1.jpg"} className='object-cover h-full w-full shadow-[5px_0_30px_0px_rgba(0,0,0,0.3)]'/>
         </div>
         <div className='flex flex-col justify-between'>
             <p className='flex flex-1 justify-center md:justify-start  items-end '>Chapters</p>
@@ -21,7 +21,7 @@ const AboutBook = ({data}: {data:any}) => {
                     <span className='font-bold'>genre: </span> Thriller, Nice, Something ,
                     
                 </div>
-                <div className='flex gap-2'>
+                <div className='text-center mt-2 md:text-left md:justify-start flex gap-2 justify-center items-center'>
                     <div>
                    <span className='font-bold'>copyright year:</span>  {data.copyright_year} , 
                     </div>

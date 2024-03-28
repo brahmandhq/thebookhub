@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 import ListItem from "../../components/ListItem";
 import PageContent from "./components/pageContent";
 import { getBookById, getBooks, getBooksByAuthorOrTitle } from "@/lib/books";
-
+import { genres } from "@/data/genre";
 export default async function Home() {
   const books = await getBooks({page:1, limit: 5});
 
@@ -43,26 +43,17 @@ export default async function Home() {
               mt-4
             "
           >
-            <ListItem 
-            name={"Liked Books"}             // name="Liked Songs" 
-              image="/images/liked.png" 
-              href="liked" 
-            />
-             <ListItem 
-            name={"Liked Books"}             // name="Liked Songs" 
-              image="/images/liked.png" 
-              href="liked" 
-            />
-             <ListItem 
-            name={"Liked Books"}             // name="Liked Songs" 
-              image="/images/liked.png" 
-              href="liked" 
-            />
-             <ListItem 
-            name={"Liked Books"}             // name="Liked Songs" 
-              image="/images/liked.png" 
-              href="liked" 
-            />
+            {
+              genres.map((genre) => 
+              <ListItem 
+              key={genre.id}
+                name={genre.title}             // name="Liked Songs" 
+                image={genre.img} 
+                href="liked" 
+              />
+              )
+            }
+          
            
           </div>
           </div>

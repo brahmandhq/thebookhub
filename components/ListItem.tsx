@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FaPlay } from "react-icons/fa";
-
+import { FaBookOpen } from "react-icons/fa";
 
 interface ListItemProps {
   image: string;
@@ -65,7 +65,7 @@ const ListItem: React.FC<ListItemProps> = ({
           flex 
           items-center 
           justify-center 
-          bg-green-500 
+          bg-amber-800 
           p-4 
           drop-shadow-md 
           right-5
@@ -73,7 +73,7 @@ const ListItem: React.FC<ListItemProps> = ({
           hover:scale-110
         "
       >
-        <FaPlay className="text-black" />
+        <FaBookOpen className="text-black" />
       </div>
     </button>
    );

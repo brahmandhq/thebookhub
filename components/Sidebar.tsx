@@ -37,7 +37,9 @@ const Sidebar: React.FC<Sidebarprops> = ({
           gap-y-2 
           bg-black 
           h-full 
-          w-[400px] 
+          lg:w-[380px] 
+          md:max-w-[380px] 
+       
           p-2'>
 
    

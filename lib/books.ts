@@ -1,4 +1,4 @@
-import prisma from "@/utils/prisma";
+import {prisma }from "@/utils/prisma"
 
 export const getBooks = async ({ page , limit  } : { page?: string | number | null, limit?: string | number | null } = {}) => {
 

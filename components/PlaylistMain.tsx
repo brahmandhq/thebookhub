@@ -4,7 +4,7 @@ import PlayButton from "./PlayButton";
 import PlayBookPlaylist from "./PlayBookPlaylist";
 import useOnPlay from "@/hooks/useOnPlay";
 
-const PlaylistMain = ({data, name} : {data:any, name:string}) => {
+const PlaylistMain = ({data, name, img} : {data:any, name:string, img:string}) => {
 
 
   const onPlay = useOnPlay();
@@ -37,7 +37,7 @@ onPlay(data[0].id, data, name);
                 <td className="whitespace-nowrap px-4 py-2">{index + 1}</td>
                 <td className="whitespace-nowrap px-4 py-2 flex gap-3 items-center">
                     <div className="h-10 w-10">
-                        <img src="https://res.cloudinary.com/dp3ppkxo5/image/upload/w_40,h_40,c_scale/v1693776175/spotify-astro/song_1_qitfwl.jpg" alt="The Nights" className="rounded object-cover h-full w-full shadow-[5px_0_30px_0px_rgba(0,0,0,0.3)]" />
+                        <img src={img ? img : "/images/book1.jpg"} alt="The Nights" className="rounded object-cover h-full w-full shadow-[5px_0_30px_0px_rgba(0,0,0,0.3)]" />
                             </div>
                             <div className="leading-none">
                                 <a href="#" className="text-gray-300 group-hover:text-white hover:underline text-sm">{chapter.title}</a>

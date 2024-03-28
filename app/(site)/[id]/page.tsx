@@ -19,7 +19,7 @@ const getBook= await getBookById(params.id)
     <HeaderPlaylist >
     
         {getBook && <AboutBook data={getBook}/> }
-        {getBook && <PlaylistMain data={getBook.chapters} name={params.id}/> }
+        {getBook && <PlaylistMain data={getBook.chapters} img={getBook.imageLink } name={params.id}/> }
         
     </HeaderPlaylist>
   </div>

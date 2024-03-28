@@ -1,5 +1,5 @@
 // pages/api/chapters/[bookId]/[chapterId].js
-import prisma from '@/utils/prisma';
+import {prisma }from "@/utils/prisma"
 import { type NextRequest } from 'next/server'
 import { NextResponse } from 'next/server';
 export async function GET(req: NextRequest) {
