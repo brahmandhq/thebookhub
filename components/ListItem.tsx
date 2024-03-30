@@ -20,11 +20,9 @@ const ListItem: React.FC<ListItemProps> = ({
 
   
   const onClick = () => {
-    // if (!user) {
-    //   return authModal.onOpen();
-    // }
+  
 
-    router.push(href);
+    router.push(`category/${href}`);
   };
 
   return ( 

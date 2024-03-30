@@ -2,6 +2,7 @@
 
 import Books from "@/components/Books";
 import useOnPlay from "@/hooks/useOnPlay";
+import { motion } from "framer-motion";
 import { Key } from "react";
 
 // import { Song } from "@/types";
@@ -24,7 +25,10 @@ const PageContent: React.FC<any> = ({
   }
 
   return ( 
-    <div 
+    <motion.div 
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y:0 , transition: {delay: 0.3}}}
+    exit={{ opacity: 0, y: 20}} 
       className="
         grid 
         grid-cols-2 
@@ -47,7 +51,7 @@ const PageContent: React.FC<any> = ({
           data={item}
         />
       ))}
-    </div>
+    </motion.div>
   );
 }
  

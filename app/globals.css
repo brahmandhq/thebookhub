@@ -8,8 +8,10 @@ body,
 :root
 {
  height: 100%;
+ max-height: screen;
  background-color: black;
  color-scheme: dark;
+ scrollbar-color: rgb(50, 50, 50) rgb(30, 30, 30);
 
    
 }

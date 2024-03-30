@@ -10,11 +10,9 @@ const PlayBookPlaylist = () => {
           flex 
           items-center 
           justify-center 
-          bg-green-500 
+          bg-amber-700
           p-4 
           drop-shadow-md 
-          
-          hover:scale-110
         "
       >
         <FaPlay className="text-black" />
@@ -22,4 +20,4 @@ const PlayBookPlaylist = () => {
   )
 }
 
-export default PlayBookPlaylist
+export default React.memo(PlayBookPlaylist)

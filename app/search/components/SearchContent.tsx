@@ -1,8 +1,5 @@
 "use client";
 
-// import { Song } from "@/types";
-// import MediaItem from "@/components/MediaItem";
-// import useOnPlay from "@/hooks/useOnPlay";
 import { GiDuration } from "react-icons/gi";
 import { useRouter } from "next/navigation";
 interface SearchContentProps {
@@ -12,7 +9,7 @@ interface SearchContentProps {
 const SearchContent: React.FC<SearchContentProps> = ({
   books
 }) => {
-//   const onPlay = useOnPlay(books);
+
 
 const router = useRouter()
 

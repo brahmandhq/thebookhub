@@ -1,14 +1,15 @@
 import AboutBook from '@/components/AboutBook'
 import HeaderPlaylist from '@/components/HeaderPlaylist'
+import { PageWrapper } from '@/components/PageWrapper'
 import PlaylistMain from '@/components/PlaylistMain'
 import { getBookById } from '@/lib/books'
 import React from 'react'
-
 const page = async ({params}: {params : {id: string}}) => {
 const getBook= await getBookById(params.id)
 
+
   return (
-    <div  className="
+    <PageWrapper className="
     bg-neutral-900 
     rounded-lg 
     h-full 
@@ -19,10 +20,10 @@ const getBook= await getBookById(params.id)
     <HeaderPlaylist >
     
         {getBook && <AboutBook data={getBook}/> }
-        {getBook && <PlaylistMain data={getBook.chapters} img={getBook.imageLink } name={params.id}/> }
+        {getBook && <PlaylistMain data={getBook.chapters} idN={params.id!} img={getBook.imageLink!} name={getBook.name}/> }
         
     </HeaderPlaylist>
-  </div>
+  </PageWrapper>
   )
 }
 

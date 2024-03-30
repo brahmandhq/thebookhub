@@ -6,11 +6,13 @@ const useOnPlay = () => {
   const bookStore = useBookStore();
 
  
-  const onPlay = (id: any, chapters, bookId) => {
-    console.log("target", id, bookId)
+  const onPlay = (id: any, chapters: any[], bookId: string, img: string, name: string) => {
+
     bookStore.setBookId(bookId)
     bookStore.setId(id)
     bookStore.setIds(chapters.map((chapter) => chapter.id) as any)
+    bookStore.setbookImg(img)
+    bookStore.setbookName(name)
   }
 
   return onPlay;

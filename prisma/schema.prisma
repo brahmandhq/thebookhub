@@ -15,10 +15,11 @@ model Book {
   duration       String?
   language       String?
   copyright_year Int?
+  queue          Int       @default(99999999)
   url_librivox   String?
-  authorId       Int
   imageLink      String?
-  author         Author    @relation(fields: [authorId], references: [id])
+  authorId       Int?
+  author         Author?   @relation(fields: [authorId], references: [id])
   chapters       Chapter[]
   genres         Genre[]   @relation("BookGenres")
 }

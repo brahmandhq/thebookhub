@@ -4,7 +4,7 @@ import "./globals.css";
 import Sidebar from "../components/Sidebar";
 import Player from "@/components/Player";
 import Providers from "@/components/Provider/Provider";
-
+import ModalProvider from "@/components/Provider/ModalProvider";
 const font = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -21,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <Providers>
         <body className={font.className}>
+          <ModalProvider/>
           <Sidebar>{children}</Sidebar>
           <Player />
         </body>

@@ -1,21 +1,56 @@
 "use client"
-import React from "react";
+import React, { useEffect } from "react";
 import PlayButton from "./PlayButton";
 import PlayBookPlaylist from "./PlayBookPlaylist";
 import useOnPlay from "@/hooks/useOnPlay";
+import { useSession } from "next-auth/react";
+import useAuthModal from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import { resolve } from "path";
+import { rejects } from "assert";
+import { motion } from "framer-motion";
 
-const PlaylistMain = ({data, name, img} : {data:any, name:string, img:string}) => {
+const PlaylistMain = ({data, name, img, idN} : {data:any, name:string, img:string, idN:any}) => {
+  const {data : session} = useSession()
+  const {onClose, onOpen} = useAuthModal()
+  const router = useRouter();
 
+
+  // useEffect(() => {
+  //   if(session?.user?.email){
+  //     router.refresh();
+  //     onClose();
+  //   }
+  // },[session, router, onClose])
 
   const onPlay = useOnPlay();
-const handleClick = () => {
-  console.log('handleClick called', name);
-onPlay(data[0].id, data, name);
-}
+  const handleLogInFirst = () => {
+
+    return new Promise((resolve, reject) => {
+      onOpen();
+    });
+  };
+
+  const handleClick = async (id: any) => {
+    let idToPass = id ? id : data[0].id
+
+    if (!session?.user?.email) {
+     handleLogInFirst().then(() => onPlay(idToPass, data, idN, img, name)).catch(error => console.error("Login error:", error));
+      
+    }else{
+      onPlay(idToPass, data, idN, img, name);
+    }
+
+
+   
+  };
 
   return (
-    <div className=" bg-zinc-900/30 mt-6 flex-1 p-6 blur-100">
-      <div className="flex relative gap-1 items-center" onClick={handleClick}>
+    <div
+    
+    
+    className=" bg-zinc-900/30 mt-6 flex-1 p-6 blur-100">
+      <div className="flex relative gap-1 items-center" onClick={() =>handleClick(data[0].id)}>
         <PlayBookPlaylist />
       </div>
       <div className="px-6 pt-4">
@@ -32,7 +67,7 @@ onPlay(data[0].id, data, name);
                 {data.map((chapter: { id: React.Key | null | undefined; title: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; reader: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; duration: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; },index: any) => (
                     
               
-            <tr key={chapter.id} className="group hover:bg-gray-500/20 cursor-pointer">
+            <tr onClick={() => handleClick(chapter.id)} key={chapter.id} className="group hover:bg-gray-500/20 cursor-pointer">
                 
                 <td className="whitespace-nowrap px-4 py-2">{index + 1}</td>
                 <td className="whitespace-nowrap px-4 py-2 flex gap-3 items-center">
@@ -56,4 +91,4 @@ onPlay(data[0].id, data, name);
   );
 };
 
-export default PlaylistMain;
+export default React.memo(PlaylistMain);

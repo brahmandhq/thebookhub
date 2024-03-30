@@ -1,14 +1,17 @@
 "use client"
+import { motion } from 'framer-motion';
 import React from 'react'
 import { IoIosTimer } from "react-icons/io";
 const AboutBook = ({data}: {data:any}) => {
-
+    
   return (
-    <div className='flex flex-col items-center md:flex-row md:items-stretch gap-8 p-6'>
+    <motion.div 
+
+    className='flex flex-col items-center md:flex-row md:items-stretch gap-8 p-6'>
         <div className='h-52 w-52 flex-none'>
             <img src={data.imageLink ? data.imageLink : "/images/book1.jpg"} className='object-cover h-full w-full shadow-[5px_0_30px_0px_rgba(0,0,0,0.3)]'/>
         </div>
-        <div className='flex flex-col justify-between'>
+        <div   className='flex flex-col justify-between'>
             <p className='flex flex-1 justify-center md:justify-start  items-end '>Chapters</p>
             <h1 className='md:text-5xl text-center md:text-left text-3xl font-bold block mt-2'>{data.name}</h1>
             
@@ -34,8 +37,8 @@ const AboutBook = ({data}: {data:any}) => {
 
         </div>
 
-    </div>
+    </motion.div>
   )
 }
 
-export default AboutBook
+export default React.memo(AboutBook);

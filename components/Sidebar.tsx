@@ -30,7 +30,7 @@ const Sidebar: React.FC<Sidebarprops> = ({
   ], [pathname]);
 
   return (
-    <div className='flex h-full pr-2'>
+    <div className='flex h-full max-h-screen pr-2'>
       <div className='hidden 
           md:flex 
           flex-col 

@@ -4,20 +4,15 @@ import ListItem from "../../components/ListItem";
 import PageContent from "./components/pageContent";
 import { getBookById, getBooks, getBooksByAuthorOrTitle } from "@/lib/books";
 import { genres } from "@/data/genre";
+import { PageWrapper } from "@/components/PageWrapper";
 export default async function Home() {
-  const books = await getBooks({page:1, limit: 5});
+  const books = await getBooks({page:0, limit: 25});
 
-
-
-// const chaps = await getChapterById(345)
-// console.log("chapsss", chaps)
-  // const booksIgot = await getBookById (5);
-  // console.log("all books" ,booksIgot, booksIgot);
   return (
-    <div  className="
+    <div className="
     bg-neutral-900 
     rounded-lg 
-    h-full 
+    max-h-full 
     w-full
     overflow-hidden 
     overflow-y-auto
@@ -49,7 +44,7 @@ export default async function Home() {
               key={genre.id}
                 name={genre.title}             // name="Liked Songs" 
                 image={genre.img} 
-                href="liked" 
+                href={genre.slug}
               />
               )
             }
@@ -57,6 +52,8 @@ export default async function Home() {
            
           </div>
           </div>
+
+          
       </Header>
       <div className="mt-2 mb-7 px-6">
         <div className="flex justify-between items-center">
@@ -66,6 +63,7 @@ export default async function Home() {
         </div>
         <PageContent books={books} />
       </div>
+      
     </div>
   );
 }

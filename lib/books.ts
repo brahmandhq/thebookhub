@@ -1,6 +1,8 @@
+import { fictionGenre, hobbyGenre, LiteratureGenres, nonFictionGenres } from "@/data/genre";
 import {prisma }from "@/utils/prisma"
+import { cache, useMemo } from 'react'
 
-export const getBooks = async ({ page , limit  } : { page?: string | number | null, limit?: string | number | null } = {}) => {
+export const getBooks = cache(async ({ page , limit = 10  } : { page?: string | number | null, limit?: string | number | null } = {}) => {
 
     try {
         const page1 = parseInt(page as any) || 0;
@@ -9,10 +11,16 @@ export const getBooks = async ({ page , limit  } : { page?: string | number | nu
         const books = await prisma.book.findMany({
           skip: page1 * limit1,
           take: limit1,
+          orderBy: {
+            queue: 'asc', // Order by queue in ascending order
+        },
+          
           include: {
             author: true, 
-            chapters: true
+            chapters: true,
+            genres: true
         },
+    
         });
       
         return books
@@ -22,7 +30,7 @@ export const getBooks = async ({ page , limit  } : { page?: string | number | nu
         throw new Error ("An error occurred while fetching books. Please try again.")
     }
    
-}
+})
 
 
 export const getBooksByAuthorOrTitle = async (data: string | null | undefined) => {
@@ -72,7 +80,8 @@ export async function getChapterById(bookId: any, chapterId:  any ) {
         return { data };
 
     }catch(error){
-        console.log("what error" ,error)
+        console.error("Error fetching books:", error);
+        throw new Error ("An error occurred while fetching books. Please try again.")
        
     }
     
@@ -80,7 +89,7 @@ export async function getChapterById(bookId: any, chapterId:  any ) {
   }
 
 
-export const getBookById = async (id:any) => {
+export const getBookById = cache(async (id:any) => {
     try {
         const book = await prisma.book.findUnique({
             where: { id: parseInt(id as string) },
@@ -99,4 +108,53 @@ export const getBookById = async (id:any) => {
 
 
 
-}
+})
+
+export const getBooksByGenre = cache(async (category: string, offset: number = 0, batchSize: number = 25) => {
+    try {
+        // Calculate the skip based on offset and batchSize, assuming offset is the number of previously loaded items
+        const skip = offset * batchSize;
+
+        let genreFilter;
+        switch (category) {
+            case "literature":
+                genreFilter = LiteratureGenres;
+                break;
+            case "non-fiction":
+                genreFilter = nonFictionGenres;
+                break;
+            case "fiction":
+                genreFilter = fictionGenre;
+                break;
+            case "hobbies":
+                genreFilter = hobbyGenre;
+                break;
+            default:
+                genreFilter = fictionGenre; // Default case or handle error/invalid category
+        }
+
+        const books = await prisma.book.findMany({
+            where: {
+              genres: {
+                some: {
+                  name: {
+                    in: genreFilter,
+                  },
+                },
+              },
+            },
+            include: {
+              genres: true, // Optional: include genre data in the response
+              author: true, // Optional: include author data in the response
+            },
+            skip,
+            take: batchSize, // Use batchSize for consistent item fetching
+        });
+        
+        return books;
+        
+    } catch (error) {
+        console.error("Error fetching books:", error);
+        throw new Error ("An error occurred while fetching books. Please try again.");
+    }
+})

@@ -4,6 +4,7 @@ import Image from "next/image";
 import PlayButton from "./PlayButton";
 import Tag from "./Tag";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 // import useLoadImage from "@/hooks/useLoadImage";
 // import { Song } from "@/types";
 
@@ -19,8 +20,6 @@ const Books: React.FC<any> = ({
 
 }) => {
 const router = useRouter()
-
-console.log("at the books", data, "the id to pass", data.chapters[0].id)
 
 
 
@@ -61,7 +60,10 @@ const handleClick = () => {
           overflow-hidden
         "
       >
-        <img
+        <motion.img
+        initial={{opacity:0, y:20}}
+        animate={{opacity:1, y:0 , transition: {delay: 0.4}}}
+        exit={{opacity:0, x:20}}
           className="object-cover"
           src={ data.imageLink ? data.imageLink :  '/images/book1.jpg'}
          
