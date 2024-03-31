@@ -6,7 +6,7 @@ import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import { IoIosClose } from "react-icons/io";
 // import { Song } from "@/types";
-import usePlayer from "@/hooks/usePlayer";
+import { useRouter } from "next/navigation";
 
 import Slider from "./Slider";
 import useBookStore from "@/store/book";
@@ -15,7 +15,7 @@ import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 import MediaItem from "./MediaItem";
 // import MediaItem from "./MediaItem";
 // import Slider from "./Slider";
-
+import { TiTickOutline } from "react-icons/ti";
 
 interface PlayerContentsProps {
   id: number;
@@ -37,15 +37,34 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
   const [volume, setVolume] = useState(1);
   const [isPlaying, setIsPlaying] = useState(true);
   const [duration, setDuration] = useState(0)
-  const [currentTime, setCurrentTime] = useState(0)
-  // const [elapsed, setElapsed] = useState(0);
-  // const [timeRemanaining, setTimeRemanaining] = useState(0);
-
+  const [currentTime, setCurrentTime] = useState(JSON.parse(localStorage.getItem("current-time")!) ?? 0)
+  const [playBackSpeed, setPlayBackSpeed] = useState(1.0);
+const router = useRouter()
   const progressBar = useRef<HTMLInputElement>(null);
   const audioPlayer = useRef<HTMLAudioElement>(null);
-const animationRef = useRef(); 
 
-
+const optionsForSpeed = [
+  {
+    val: 0.5,
+    current:false
+  },
+  {
+    val: 1.0,
+    current:true
+  },
+  {
+    val: 1.5,
+    current:false
+  },
+  {
+    val: 1.75,
+    current:false
+  },
+  {
+    val: 2,
+    current:false
+  },
+]
 useEffect(() => {
   const audioElement = audioPlayer.current!;
   
@@ -53,20 +72,21 @@ useEffect(() => {
   
 
   const handleTimeUpdate = () => {
-    progressBar.current.max = audioElement.duration;
-      setCurrentTime(audioElement.currentTime);
-  
-
+    progressBar.current!.max = audioElement.duration.toString();
+    setCurrentTime(audioElement.currentTime);
 
   };
 
 
   const handleLoadedMetadata = () => {
       setDuration(audioElement.duration);
+      
   };
 
+  
 
 
+  // audioElement?.addEventListener('canplay', handleCanPlay);
   audioElement.addEventListener('timeupdate', handleTimeUpdate);
   audioElement.addEventListener('loadedmetadata', handleLoadedMetadata);
 
@@ -119,29 +139,54 @@ useEffect(() => {
     return '00:00';
 }
 
+
+
   useEffect(() => {
-    if (audioPlayer.current) audioPlayer.current.volume = volume;
-    if(isPlaying){
-      setInterval(() => {
-          const _duration = Math.floor(audioPlayer?.current?.duration!);
-          const _elapsed = Math.floor(audioPlayer?.current?.currentTime!);
-          progressBar.current.value = audioPlayer.current.currentTime;
-          setDuration(_duration);
-          setCurrentTime(_elapsed);
-      }, 100);
-  }
-
     
+    if (audioPlayer.current) {
+        audioPlayer.current.volume = volume;
+    }
 
-  }, [volume, isPlaying]);
+    // This check may not be necessary for setting the volume but is shown here for completeness
+    if (!audioPlayer.current || !progressBar.current) return;
+
+    // Using an interval to continuously update the UI based on the audio state
+    const intervalId = setInterval(() => {
+        if (!audioPlayer.current) return; // Additional check to ensure audioPlayer is not null
+        
+        const _duration = Math.floor(audioPlayer.current.duration);
+        const _elapsed = Math.floor(audioPlayer.current.currentTime);
+        
+        // Direct DOM manipulation should be safe here since we've checked audioPlayer.current
+        progressBar.current!.value = audioPlayer.current.currentTime.toString();
+        setDuration(_duration);
+        setCurrentTime(_elapsed);
+    }, 100);
+
+    return () => clearInterval(intervalId); // Cleanup to clear the interval when the component unmounts or dependencies change
+}, [volume, isPlaying]); 
 
 
   useEffect(() => {
     if(isPlaying){
       currentTime === duration && onPlayNext ();
+      
     }
 
   },[currentTime, isPlaying])
+
+
+  useEffect(() => {
+    audioPlayer.current!.playbackRate = playBackSpeed
+
+  }, [playBackSpeed])
+
+  
+
+  useEffect(() => {
+    localStorage.setItem("current-time", JSON.stringify(currentTime))
+
+  },[isPlaying, currentTime])
 
   const handlePlay = () => {
 
@@ -149,11 +194,7 @@ useEffect(() => {
     setIsPlaying(prev => !prev)
   
   }
-  // const whilePlaying = () => {
-  //   progressBar.current.value = audioPlayer.current.currentTime;
-  //   setCurrentTime(Number(progressBar.current?.value))
-  //   animationRef.current = requestAnimationFrame(whilePlaying);
-  // }
+
 
   const toggleMute = () => {
     if (volume === 0) {
@@ -163,12 +204,19 @@ useEffect(() => {
     }
   }
 
-  const changeRange = () => {
-   
-      audioPlayer.current.currentTime = progressBar.current.value
-      setCurrentTime(Number(progressBar.current?.value))  
 
-  }
+
+   
+    const changeRange = () => {
+      // Check if the refs are current and not null
+      if (audioPlayer.current && progressBar.current) {
+        // Convert the progressBar value to a number before assigning
+        const newTime = Number(progressBar.current.value);
+        audioPlayer.current.currentTime = newTime;
+        setCurrentTime(newTime);
+      }
+    }
+  
 
 
  
@@ -180,7 +228,7 @@ useEffect(() => {
 
       
         <div className="flex w-full justify-start">
-          <div className="flex items-center gap-x-4 pl-4">
+          <div className="flex items-center gap-x-4 pl-4" onClick={() => router.push(`/${currentBook.bookId}`)}>
             <MediaItem title={ chapter.title} img={currentBook.bookImg} name={currentBook.bookName} />
 
           </div>
@@ -258,13 +306,32 @@ useEffect(() => {
           </div>
         </div>
         </div>
+        <div className="flex items-center">
         <div className="flex gap-[1vw] max-w-[100%] mx-auto w-[400px] justify-center px-4 pb-2 items-center">
           <p>{formatTime(currentTime)}</p>
          
             <input ref={progressBar} defaultValue="0"  onChange={changeRange}  type="range" className="w-full h-1  rounded-lg appearance-none cursor-pointer dark:bg-gray-700"></input>
          
           <p>{ formatTime(duration)}</p>
-        </div>    
+        </div>  
+        <div>
+  <select
+    value={playBackSpeed}
+    name="speed"
+    id="speed"
+    onChange={(event) => setPlayBackSpeed(parseFloat(event.target.value))}
+    className="outline-none rounded-md p-1"
+  >
+    {optionsForSpeed.map((option) => (
+      <option key={option.val} value={option.val}>
+        {option.val + " " + "x" }
+        {option.current && <TiTickOutline />}
+      </option>
+    ))}
+  </select>
+</div>
+
+        </div>  
       </div>
    );
 }

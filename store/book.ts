@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-
+import { persist, createJSONStorage } from 'zustand/middleware'
 interface BookStore {
     bookId: any,
     bookName?: string,
@@ -14,7 +14,7 @@ interface BookStore {
     setbookName: (name: string) => void;
 } 
 
-const useBookStore = create<BookStore>((set) => ({
+const useBookStore = create<BookStore, [["zustand/persist", unknown]]>(persist((set) => ({
     ids:  [],
     activeId:undefined,
     bookId:undefined,
@@ -25,8 +25,18 @@ const useBookStore = create<BookStore>((set) => ({
     setBookId: (id: string) => set({ bookId : id}),
     setId: (id: string) => set({activeId : id}),
     setIds: (ids: string[]) => set({ids : ids}),
-    reset: () => set({ids: [], activeId: undefined})
+    reset: () =>{ 
+        set({ids: [], activeId: undefined})
+        localStorage.removeItem('book-store'); 
+    }
 
-}))
+}),
+{
+  name: 'book-storage', // name of the item in the storage (must be unique)
+  storage: createJSONStorage(() => localStorage), // (optional) by default, 'localStorage' is used
+},
+),
+
+)
 
 export default useBookStore;
