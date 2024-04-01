@@ -16,6 +16,8 @@ import MediaItem from "./MediaItem";
 // import MediaItem from "./MediaItem";
 // import Slider from "./Slider";
 import { TiTickOutline } from "react-icons/ti";
+import usePlayValue from "@/store/play";
+import Loader from "./Loader";
 
 interface PlayerContentsProps {
   id: number;
@@ -35,14 +37,16 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
 }) => {
   const currentBook = useBookStore()
   const [volume, setVolume] = useState(1);
-  const [isPlaying, setIsPlaying] = useState(true);
+  // const [isPlaying, setIsPlaying] = useState(true);
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(JSON.parse(localStorage.getItem("current-time")!) ?? 0)
   const [playBackSpeed, setPlayBackSpeed] = useState(1.0);
+  const {isPlaying, setIsPlaying} = usePlayValue()
+  const [isLoading, setIsLoading] = useState(true);
 const router = useRouter()
   const progressBar = useRef<HTMLInputElement>(null);
   const audioPlayer = useRef<HTMLAudioElement>(null);
-
+  console.log(isPlaying)
 const optionsForSpeed = [
   {
     val: 0.5,
@@ -191,7 +195,7 @@ useEffect(() => {
   const handlePlay = () => {
 
     !isPlaying ? audioPlayer?.current?.play() : audioPlayer?.current?.pause()
-    setIsPlaying(prev => !prev)
+    setIsPlaying()
   
   }
 
@@ -223,7 +227,7 @@ useEffect(() => {
 
   return ( 
     <div className="flex flex-col justify-center mt-1 gap-0 h-full">
-      <audio src={chapter.link} autoPlay={isPlaying} ref={audioPlayer}/>
+      <audio onLoadStart={() => setIsLoading(true)} onLoadedData={() => setIsLoading(false)} src={chapter.link} autoPlay={isPlaying} ref={audioPlayer}/>
       <div className="grid grid-cols-2 md:grid-cols-3 pt-2">
 
       
@@ -261,24 +265,23 @@ useEffect(() => {
               transition
             "
           />
-          <div 
-            onClick={handlePlay} 
-            className="
-              flex 
-              items-center 
-              justify-center
-              h-10
-              w-10 
-              rounded-full 
-              bg-white 
-              p-1 
-              cursor-pointer
-            "
-          >
-            {
-              isPlaying ? <BsPauseFill size={30} className="text-black" /> : <BsPlayFill size={30} className="text-black" />
-            }
-          </div>
+          {
+  isLoading ? (
+    <div 
+      
+      className="flex items-center justify-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer"
+    >
+      <Loader />
+      </div>
+  ) : (
+    <div 
+      onClick={handlePlay} 
+      className="flex items-center justify-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer"
+    >
+      {isPlaying ? <BsPauseFill size={30} className="text-black" /> : <BsPlayFill size={30} className="text-black" />}
+    </div>
+  )
+}
           <AiFillStepForward
             onClick={onPlayNext}
             size={30} 

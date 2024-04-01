@@ -9,12 +9,13 @@ import { useRouter } from "next/navigation";
 import { resolve } from "path";
 import { rejects } from "assert";
 import { motion } from "framer-motion";
+import usePlayValue from "@/store/play";
 
 const PlaylistMain = ({data, name, img, idN} : {data:any, name:string, img:string, idN:any}) => {
   const {data : session} = useSession()
   const {onClose, onOpen} = useAuthModal()
   const router = useRouter();
-
+  const {isPlaying, setIsPlaying} = usePlayValue()
 
   // useEffect(() => {
   //   if(session?.user?.email){
@@ -35,10 +36,15 @@ const PlaylistMain = ({data, name, img, idN} : {data:any, name:string, img:strin
     let idToPass = id ? id : data[0].id
 
     if (!session?.user?.email) {
-     handleLogInFirst().then(() => onPlay(idToPass, data, idN, img, name)).catch(error => console.error("Login error:", error));
+     handleLogInFirst().then(() =>{ 
+      onPlay(idToPass, data, idN, img, name)
+      setIsPlaying()
+    
+    }).catch(error => console.error("Login error:", error));
       
     }else{
       onPlay(idToPass, data, idN, img, name);
+      setIsPlaying()
     }
 
 

@@ -5,6 +5,8 @@ import Sidebar from "../components/Sidebar";
 import Player from "@/components/Player";
 import Providers from "@/components/Provider/Provider";
 import ModalProvider from "@/components/Provider/ModalProvider";
+import { LayoutGroup } from "framer-motion";
+import Loader from "@/components/Loader";
 const font = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
