@@ -10,7 +10,8 @@ export async function GET(req: NextRequest, context: any) {
       where: {
         id: parseInt(params.chapterId),
         bookId: parseInt(params.bookId)
-      }
+      },
+    
     });
 
 

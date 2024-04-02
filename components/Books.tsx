@@ -15,24 +15,16 @@ interface SongItemProps {
   // onClick: (id: string) => void;
 }
 
-const Books: React.FC<any> = ({
-  data,
+const Books: React.FC<any> = ({ data }) => {
+  const router = useRouter();
 
-}) => {
-const router = useRouter()
+  const handleClick = () => {
+    router.push(`/${data.id}`);
+  };
 
-
-
-const handleClick = () => {
-
-  router.push(`/${data.id}`)
-
-
-}
-
-  return ( 
+  return (
     <div
-      onClick={ handleClick} 
+      onClick={handleClick}
       className="
         relative 
         group 
@@ -50,7 +42,7 @@ const handleClick = () => {
         p-5
       "
     >
-      <div 
+      <div
         className="
           relative 
           aspect-square 
@@ -61,33 +53,57 @@ const handleClick = () => {
         "
       >
         <motion.img
-        initial={{opacity:0, y:20}}
-        animate={{opacity:1, y:0 , transition: {delay: 0.4}}}
-        exit={{opacity:0, x:20}}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
+          exit={{ opacity: 0, x: 20 }}
           className="object-cover"
-          src={ data.imageLink ? data.imageLink :  '/images/book1.jpg'}
-         
+          src={data.imageLink ? data.imageLink : "/images/book1.jpg"}
           alt="Image"
         />
       </div>
       <div className="flex flex-col items-start w-full pt-4 gap-y-1">
-        <p className="font-semibold truncate w-full text-xl">
-          {data.name}
-        </p>
-        <p 
+        <p className="font-semibold truncate w-full text-lg">{data.name}</p>
+        <p
           className="
             text-neutral-400 
             text-md 
-            pb-4 
+       
             w-full 
             truncate
           "
         >
-          By { data.author.firstName && data.author.firstName ? (data.author.firstName + " " +  data.author.lastName) : data.author.firstName ? data.author.firstName : data.author.lastName ? data.author.lastName : "Anon"}
+          By{" "}
+          {data.author.firstName && data.author.firstName
+            ? data.author.firstName + " " + data.author.lastName
+            : data.author.firstName
+            ? data.author.firstName
+            : data.author.lastName
+            ? data.author.lastName
+            : "Anon"}
         </p>
-        <Tag title={data.language}/>
+        <p
+          className="
+            text-neutral-300 
+            text-sm 
+            pb-4 
+            w-full 
+            truncate
+            flex 
+            gap-1
+          "
+        >
+          
+            {data.genres.map((genre: any, index: any) => (
+              <p>
+                {" "}
+                {genre.name} {index !== data.genres.length - 1 ? "," : null}
+              </p>
+            ))}
+          
+        </p>
+   
       </div>
-      <div 
+      <div
         className="
           absolute 
           bottom-28 
@@ -97,7 +113,7 @@ const handleClick = () => {
         <PlayButton />
       </div>
     </div>
-   );
-}
- 
+  );
+};
+
 export default Books;

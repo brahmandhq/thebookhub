@@ -1,4 +1,4 @@
-import { fictionGenre, hobbyGenre, LiteratureGenres, nonFictionGenres } from "@/data/genre";
+import { fictionGenre, hobbyGenre, LiteratureGenres, nonFictionGenres, romanceGenre } from "@/data/genre";
 import {prisma }from "@/utils/prisma"
 import { cache, useMemo } from 'react'
 
@@ -55,6 +55,7 @@ export const getBooksByAuthorOrTitle = async (data: string | null | undefined) =
             },
             include: {
                 author: true, 
+                genres: true
             },
           });
 
@@ -96,6 +97,7 @@ export const getBookById = cache(async (id:any) => {
             include: {
                 author: true,
                 chapters : true,
+                genres: true
                 
             }
           });
@@ -129,8 +131,11 @@ export const getBooksByGenre = cache(async (category: string, offset: number = 0
             case "hobbies":
                 genreFilter = hobbyGenre;
                 break;
+            case "plays":
+                    genreFilter = romanceGenre;
+                    break;
             default:
-                genreFilter = fictionGenre; // Default case or handle error/invalid category
+                genreFilter = category; // Default case or handle error/invalid category
         }
 
         const books = await prisma.book.findMany({

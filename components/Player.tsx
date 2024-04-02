@@ -22,7 +22,7 @@ const Player = () => {
 }
 
 if(chapter.isLoading) {
-  <div className='fixed z-[99] bottom-0 bg-black w-full py-2 px-4 h-[80px]'>
+  <div className='fixed z-[99] bottom-0 bg-black w-full py-2 px-4 h-[78px]'>
       Loading...
     </div>
 }

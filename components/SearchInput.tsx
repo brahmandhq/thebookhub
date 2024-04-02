@@ -28,7 +28,7 @@ const SearchInput = () => {
 
   return ( 
     <Input 
-      placeholder="What do you want to read?"
+      placeholder="What do you want to read? Search By Title, Language, Author OR Genre..."
       value={value}
       onChange={(e: { target: { value: SetStateAction<string>; }; }) => setValue(e.target.value)}
     />

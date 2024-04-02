@@ -23,6 +23,21 @@ export const genres = [
         slug:"hobbies",
         img: "/genres/hobbies.webp"
     },
+    {
+      id: "5",
+      title: "Plays & Poetry",
+      slug:"plays",
+      img: "/genres/romance.webp"
+  },
+ 
+]
+
+
+export const romanceGenre = [
+  "romance",
+  "poetry",
+  "Plays"
+
 ]
 
 export const LiteratureGenres = [

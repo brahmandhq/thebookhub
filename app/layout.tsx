@@ -22,11 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Providers>
-        <body className={font.className}>
+        <body className={font.className }>
           <ModalProvider/>
           <Sidebar>{children}</Sidebar>
-          <Player />
+          
         </body>
+        <Player />
       </Providers>
     </html>
   );

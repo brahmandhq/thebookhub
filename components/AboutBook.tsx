@@ -1,8 +1,29 @@
 "use client"
 import { motion } from 'framer-motion';
-import React from 'react'
+import React, { useState } from 'react'
 import { IoIosTimer } from "react-icons/io";
 const AboutBook = ({data}: {data:any}) => {
+    const [time, setTime] = useState<string>("")
+
+    console.log(data)
+
+    const formatTime = (duration: string) => {
+        let hours;
+        let minutes;
+        let seconds;
+       const val =  duration.split(":")
+       hours = val[0]
+       minutes = val[1];
+       seconds = 36;
+
+       return `${hours} ${Number(hours) > 1 ? "hours" : "hour"} ${minutes} minutes ${minutes} seconds`
+       
+       
+       
+
+
+    }
+    
     
   return (
     <motion.div 
@@ -17,21 +38,29 @@ const AboutBook = ({data}: {data:any}) => {
             
            
                 <p className='text-center  md:text-left mt-3'>{data.author.firstName + " " + data.author.lastName}</p>
-                <p className='text-center mt-5 md:text-left text-xs'>{data.description}</p>
+                <p dangerouslySetInnerHTML={{ __html: data.description }} className='text-center mt-5 md:text-left text-sm' />
+       
                 <div className='text-center mt-2 md:text-left md:justify-start flex gap-2 justify-center items-center'>
-                <IoIosTimer /> 
-                    <span className='font-bold'> about </span> {data.duration} hours ,
-                    <span className='font-bold'>genre: </span> Thriller, Nice, Something ,
+                    <div className='flex gap-2'> 
+                    <span className='font-bold'>Year of Publication:</span>  {data.copyright_year}  
+                    <span className='font-bold'>Genres:</span> <p className='flex gap-1'> {data.genres.map((genre : any ,index : any) => (
+                       
+                          <p>  {genre.name} { index !== data.genres.length - 1 ? "," : null }
+                            </p>
+                    ))}
+                    </p>
+                   
+
+                    </div>
+                    <div>
                     
+                    </div>
                 </div>
                 <div className='text-center mt-2 md:text-left md:justify-start flex gap-2 justify-center items-center'>
-                    <div>
-                   <span className='font-bold'>copyright year:</span>  {data.copyright_year} , 
-                    </div>
-                    <div>
-                    <span className='font-bold'>total chapters:</span> {data.chapters.length}
-                    </div>
-                </div>
+
+<span className='font-bold'> Running Time: </span> {formatTime(data.duration)} 
+
+</div>
         
 
 

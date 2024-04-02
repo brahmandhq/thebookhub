@@ -2,6 +2,7 @@ import React from 'react'
 import { GiBookshelf } from "react-icons/gi";
 import BookItem from './BookItem';
 import { FaYoutube } from "react-icons/fa";
+import { BsTwitterX } from 'react-icons/bs';
 const Library = () => {
 
     const books = [
@@ -42,7 +43,12 @@ const Library = () => {
   <div className='flex items-center justify-between px-5 pt-4 mb-[3vh]'>
   
   <p className='text-zinc-400 font-semibold text-md'>Powered by <a href="https://librivox.org/" target='_blank' className='underline hover:text-zinc-400/50'>LibriVox</a> </p>
-  <a href="https://www.youtube.com/@thebookhub137" target='_blank'><FaYoutube size={28}/></a>
+  <div className='flex gap-2 items-center'>
+  <a href="https://twitter.com/_thebookhub" target='_blank'><BsTwitterX  size={22}/></a>
+  <a href="https://www.youtube.com/@thebookhub137" target='_blank'><FaYoutube size={24}/></a>
+
+  </div>
+
   </div>
   </div>
   )
