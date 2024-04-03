@@ -292,14 +292,14 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ chapter }) => {
           </div>
         </div>
       </div>
-      <div className="flex items-center">
+      <div className="grid grid-cols-2 w-full md:grid-cols-3 pt-2 justify-items-center">
         
 
-<div className="flex gap-2">
+<div className="md:flex hidden w-full gap-2 items-center justify-start">
   
-  <p className='text-zinc-400 pl-4 font-medium text-sm'>Powered by <a href="https://librivox.org/" target='_blank' className='underline hover:text-zinc-400/50'>LibriVox</a> </p>
+  <p className='text-zinc-400 pl-4 font-medium md:text-sm text-xs'>Powered by <a href="https://librivox.org/" target='_blank' className='underline hover:text-zinc-400/50'>LibriVox</a> </p>
   
-  <div className='flex gap-2 items-center'>
+  <div className='md:flex gap-2  items-center hidden'>
   <a href="https://twitter.com/_thebookhub" target='_blank'><BsTwitterX  size={16}/></a>
   <a href="https://www.youtube.com/@thebookhub137" target='_blank'><FaYoutube size={18}/></a>
 
@@ -308,7 +308,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ chapter }) => {
 </div>
 
 
-        <div className="flex gap-[1vw] max-w-[100%] mx-auto w-[400px] justify-center px-4 pb-2 items-center">
+        <div className="flex gap-[1vw] max-w-[100%] justify-self-center mx-auto w-[400px] justify-center px-4 pb-2 items-center">
           <p>{formatTime(currentTime)}</p>
 
           <input
@@ -321,7 +321,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ chapter }) => {
 
           <p>{formatTime(duration)}</p>
         </div>
-        <div>
+        <div className="flex w-full justify-end pr-2">
           <select
             value={playBackSpeed}
             name="speed"
