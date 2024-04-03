@@ -143,7 +143,7 @@ export const getBooksByGenre = cache(async (category: string, offset: number = 0
               genres: {
                 some: {
                   name: {
-                    in: genreFilter,
+                    in: Array.isArray(genreFilter) ? genreFilter : [genreFilter],
                   },
                 },
               },

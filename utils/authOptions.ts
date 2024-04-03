@@ -26,11 +26,11 @@ export const authOption: NextAuthOptions = {
               email: profile.email,
               name: profile.name!,
              
-             picture : profile.picture
+             picture : profile.image!
             },
             update: {
               name: profile.name!,
-              picture : profile.picture
+              picture : profile.image!
             },
           })
           return true
