@@ -4,8 +4,6 @@ import ListItem from "../../components/ListItem";
 import PageContent from "./components/pageContent";
 import { getBookById, getBooks, getBooksByAuthorOrTitle } from "@/lib/books";
 import { genres } from "@/data/genre";
-import { FaPlus } from "react-icons/fa";
-import { PageWrapper } from "@/components/PageWrapper";
 import MoreGenreButton from "@/components/MoreGenreButton";
 export default async function Home() {
   const books = await getBooks({page:0, limit: 25});

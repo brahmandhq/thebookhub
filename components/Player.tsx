@@ -8,7 +8,6 @@ import { useSession } from 'next-auth/react';
 
 const Player = () => {
   const {data, status} = useSession();
-
  
 
   const currentBook = useBookStore()
@@ -17,9 +16,10 @@ const Player = () => {
 
   const chapter = useGetChapterById(currentBook.bookId, currentBook.activeId)
 
-  if ( !chapter?.chapter?.data || (Object.keys(chapter?.chapter?.data).length === 0)) {
+  if ( !chapter?.chapter?.data || (Object.keys(chapter?.chapter?.data).length === 0) || !data?.user?.email) {
     return;
 }
+
 
 if(chapter.isLoading) {
   <div className='fixed z-[99] bottom-0 bg-black w-full py-2 px-4 h-[78px]'>

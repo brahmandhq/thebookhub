@@ -15,7 +15,7 @@ const PlaylistMain = ({data, name, img, idN} : {data:any, name:string, img:strin
   const {data : session} = useSession()
   const {onClose, onOpen} = useAuthModal()
   const router = useRouter();
-  const {isPlaying, setIsPlaying} = usePlayValue()
+  const {isPlaying, setIsPlaying, toggleIsPlaying} = usePlayValue()
 
   // useEffect(() => {
   //   if(session?.user?.email){
@@ -33,20 +33,20 @@ const PlaylistMain = ({data, name, img, idN} : {data:any, name:string, img:strin
   };
 
   const handleClick = async (id: any) => {
-    let idToPass = id ? id : data[0].id
+    
 
     if (!session?.user?.email) {
-     handleLogInFirst().then(() =>{ 
-      onPlay(idToPass, data, idN, img, name)
-      setIsPlaying()
-    
-    }).catch(error => console.error("Login error:", error));
-      
-    }else{
-      onPlay(idToPass, data, idN, img, name);
-      setIsPlaying()
+      try {
+        await handleLogInFirst();
+        onPlay(id, data, idN, img, name);
+        setIsPlaying(true);
+      } catch (error) {
+        console.error("Login error:", error);
+      }
+    } else {
+      onPlay(id, data, idN, img, name);
+      setIsPlaying(true);
     }
-
 
    
   };

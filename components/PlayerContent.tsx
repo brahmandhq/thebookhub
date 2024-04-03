@@ -41,12 +41,11 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ chapter }) => {
     JSON.parse(localStorage.getItem("current-time")!) ?? 0
   );
   const [playBackSpeed, setPlayBackSpeed] = useState(1.0);
-  const { isPlaying, setIsPlaying } = usePlayValue();
+  const { isPlaying, setIsPlaying, toggleIsPlaying } = usePlayValue();
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const progressBar = useRef<HTMLInputElement>(null);
   const audioPlayer = useRef<HTMLAudioElement>(null);
-  console.log(isPlaying);
   const optionsForSpeed = [
     {
       val: 0.5,
@@ -183,7 +182,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ chapter }) => {
 
   const handlePlay = () => {
     !isPlaying ? audioPlayer?.current?.play() : audioPlayer?.current?.pause();
-    setIsPlaying();
+    toggleIsPlaying();
   };
 
   const toggleMute = () => {

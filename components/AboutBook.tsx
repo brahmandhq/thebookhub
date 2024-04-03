@@ -5,7 +5,6 @@ import { IoIosTimer } from "react-icons/io";
 const AboutBook = ({data}: {data:any}) => {
     const [time, setTime] = useState<string>("")
 
-    console.log(data)
 
     const formatTime = (duration: string) => {
         let hours;
