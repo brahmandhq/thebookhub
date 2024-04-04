@@ -26,11 +26,11 @@ export const authOption: NextAuthOptions = {
               email: profile.email,
               name: profile.name!,
              
-             picture : profile.image ? profile.image : null!
+             picture : profile.image ? profile.image : "/avatar.webp"
             },
             update: {
               name: profile.name!,
-              picture : profile.image ? profile.image : null!
+              picture : profile.image ? profile.image : "/avatar.webp"
             },
           })
           return true
