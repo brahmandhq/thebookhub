@@ -30,7 +30,7 @@ const handleClick = (id: any) => {
           text-neutral-400
         "
       >
-        No songs found.
+        No Books Found.
       </div>
     )
   }

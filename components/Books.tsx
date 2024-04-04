@@ -81,7 +81,7 @@ const Books: React.FC<any> = ({ data }) => {
             ? data.author.lastName
             : "Anon"}
         </p>
-        <p
+        <div
           className="
             text-neutral-300 
             text-sm 
@@ -100,7 +100,7 @@ const Books: React.FC<any> = ({ data }) => {
               </p>
             ))}
           
-        </p>
+        </div>
    
       </div>
       <div

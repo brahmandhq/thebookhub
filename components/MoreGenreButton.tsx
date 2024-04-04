@@ -2,13 +2,19 @@
 import React from 'react'
 import { FaPlus } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
+type GenreProps = {
+  leftIcon? : boolean,
+  title: string,
+  route: string,
+  rightIcon? : boolean
+}
 
-const MoreGenreButton = () => {
+const MoreGenreButton = ({leftIcon , title, route, rightIcon}: GenreProps) => {
     const router = useRouter()
   return (
      
     <button
-    onClick={() => router.push("/genres")}
+    onClick={() => router.push(route)}
      
     className="
       relative 
@@ -25,10 +31,11 @@ const MoreGenreButton = () => {
       pr-4
     "
   >
-     <p className=" flex gap-2 items-center font-medium text-xl truncate p-5">
+     <p className={` ${rightIcon ? "justify-between" : "justify-start"} flex gap-2 items-center font-medium text-xl truncate p-5`}>
 
-     <FaPlus size={24}/>
-     More Genres... 
+    {leftIcon &&  <FaPlus size={24}/>}
+     {title}
+
     </p>
 
          </button>

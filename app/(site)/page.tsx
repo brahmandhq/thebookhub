@@ -5,8 +5,11 @@ import PageContent from "./components/pageContent";
 import { getBookById, getBooks, getBooksByAuthorOrTitle } from "@/lib/books";
 import { genres } from "@/data/genre";
 import MoreGenreButton from "@/components/MoreGenreButton";
+import Loader from "@/components/Loader";
 export default async function Home() {
   const books = await getBooks({page:0, limit: 25});
+
+  console.log(books)
 
   return (
     <div className="
@@ -47,7 +50,7 @@ export default async function Home() {
               />
               )
             }
-         <MoreGenreButton />
+         {/* <MoreGenreButton leftIcon={true} title={"More Genres..."} route={"/genres"}/> */}
           </div>
           </div>
 
@@ -59,7 +62,7 @@ export default async function Home() {
             Books Made For You
           </h1>
         </div>
-        <PageContent books={books} />
+        {books.length === 0 ? <Loader /> : <PageContent books={books} />}
       </div>
       
     </div>
