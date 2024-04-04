@@ -9,8 +9,6 @@ import Loader from "@/components/Loader";
 export default async function Home() {
   const books = await getBooks({page:0, limit: 25});
 
-  console.log(books)
-
   return (
     <div className="
     bg-neutral-900 
