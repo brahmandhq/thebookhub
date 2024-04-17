@@ -48,7 +48,7 @@ export default async function Home() {
               />
               )
             }
-         {/* <MoreGenreButton leftIcon={true} title={"More Genres..."} route={"/genres"}/> */}
+         <MoreGenreButton leftIcon={true} title={"More Genres..."} route={"/genres"}/>
           </div>
           </div>
 

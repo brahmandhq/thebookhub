@@ -2,6 +2,32 @@ import { fictionGenre, hobbyGenre, LiteratureGenres, nonFictionGenres, romanceGe
 import {prisma }from "@/utils/prisma"
 import { cache, useMemo } from 'react'
 
+export const getBooksByGenreId = async (genreId: number) => {
+    try {
+        const books = await prisma.book.findMany({
+            where: {
+                genres: {
+                    some: {
+                        id: genreId,
+                    },
+                },
+            },
+            include: {
+                // Include any necessary relations or fields for the books
+                author: true, 
+                chapters: true,
+                genres: true
+                // ...
+            },
+        });
+
+        return books;
+    } catch (error) {
+        console.error("Error fetching books by genre ID:", error);
+        throw new Error("An error occurred while fetching books by genre ID. Please try again.");
+    }
+};
+
 export const getBooks = cache(async ({ page , limit = 10  } : { page?: string | number | null, limit?: string | number | null } = {}) => {
 
     try {
@@ -163,3 +189,33 @@ export const getBooksByGenre = cache(async (category: string, offset: number = 0
         throw new Error ("An error occurred while fetching books. Please try again.");
     }
 })
+
+export const getUniqueGenres = async () => {
+    try {
+        const uniqueGenres = await prisma.genre.findMany({
+            select: {
+                id: true,
+                name: true,
+                books: {
+                    select: {
+                        id: true, // Include any necessary fields for the books
+                    },
+                },
+            },
+            orderBy: {
+                books: {
+                    _count: 'desc',
+                },
+            },
+        });
+
+        return uniqueGenres.map((genre) => ({
+            id: genre.id, 
+            name: genre.name,
+            bookCount: genre.books.length,
+        }));
+    } catch (error) {
+        console.error("Error fetching unique genres:", error);
+        throw new Error("An error occurred while fetching unique genres. Please try again.");
+    }
+};
