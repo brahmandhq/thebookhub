@@ -73,12 +73,12 @@ const Books: React.FC<any> = ({ data }) => {
           "
         >
           By{" "}
-          {data.author.firstName && data.author.firstName
+          {(data.author?.firstName && data.author?.lastname )
             ? data.author.firstName + " " + data.author.lastName
-            : data.author.firstName
-            ? data.author.firstName
-            : data.author.lastName
-            ? data.author.lastName
+            : data.author?.firstName
+            ? data.author?.firstName
+            : data.author?.lastName
+            ? data.author?.lastName
             : "Anon"}
         </p>
         <div
@@ -93,7 +93,7 @@ const Books: React.FC<any> = ({ data }) => {
           "
         >
           
-            {data.genres.map((genre: any, index: any) => (
+            {data?.genres?.map((genre: any, index: any) => (
               <p>
                 {" "}
                 {genre.name} {index !== data.genres.length - 1 ? "," : null}

@@ -6,14 +6,15 @@ import { getBookById, getBooks, getBooksByAuthorOrTitle } from "@/lib/books";
 import { genres } from "@/data/genre";
 import MoreGenreButton from "@/components/MoreGenreButton";
 import Loader from "@/components/Loader";
+import LoadMoreBooks from "@/components/InfiniteScroll/LoadMoreBooks";
 export default async function Home() {
-  const books = await getBooks({page:0, limit: 25});
+  const books = await getBooks({page:0, limit: 24});
 
   return (
     <div className="
     bg-neutral-900 
     rounded-lg 
-    max-h-full 
+    h-screen 
     w-full
     overflow-y-auto
   ">
@@ -54,7 +55,7 @@ export default async function Home() {
 
           
       </Header>
-      <div className="mt-2 mb-7 px-6">
+      <div className="mt-2 px-6">
         <div className="flex justify-between items-center">
           <h1 className="text-white text-2xl font-semibold">
             Books Made For You
@@ -62,6 +63,9 @@ export default async function Home() {
         </div>
         {books.length === 0 ? <Loader /> : <PageContent books={books} />}
       </div>
+
+      <LoadMoreBooks />
+  
       
     </div>
   );

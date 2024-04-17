@@ -42,11 +42,11 @@ export const getGenreNameById = async (genreId: number) => {
     return genre?.name ?? null;
 } catch (error) {
     console.error("Error fetching genre name by ID:", error);
-    throw new Error("An error occurred while fetching the genre name by ID. Please try again.");
+    throw new Error("An error occurred while fetching the genre name by ID. Please try again.", error as any);
 }
 };
 
-export const getBooks = cache(async ({ page , limit = 10  } : { page?: string | number | null, limit?: string | number | null } = {}) => {
+export const getBooks = async ({ page , limit = 10  } : { page?: string | number | null, limit?: string | number | null } = {}) => {
 
     try {
         const page1 = parseInt(page as any) || 0;
@@ -71,10 +71,10 @@ export const getBooks = cache(async ({ page , limit = 10  } : { page?: string | 
         
     } catch (error) {
         console.error("Error fetching books:", error);
-        throw new Error ("An error occurred while fetching books. Please try again.")
+        throw new Error(error as any);
     }
    
-})
+}
 
 
 export const getBooksByAuthorOrTitle = async (data: string | null | undefined) => {
@@ -113,6 +113,38 @@ export const getBooksByAuthorOrTitle = async (data: string | null | undefined) =
 
 
 }
+
+
+export async function getBooksForClient({ page , limit = 10  } : { page?: string | number | null, limit?: string | number | null } = {} ) {
+   
+    try {
+        const searchParams = new URLSearchParams();
+    if (page) {
+      searchParams.append('page', page.toString());
+    }
+    searchParams.append('limit', limit!.toString());
+
+    const response = await fetch(`/api/books?${searchParams.toString()}`, {
+      method: 'GET',
+    });
+  
+        if (!response.ok) {
+
+          throw new Error('Failed to fetch chapter');
+        }
+        const data = await response.json();
+    
+        return { data };
+
+    }catch(error){
+        console.error("Error fetching books:", error);
+        throw new Error(error as any);
+       
+    }
+    
+   
+  }
+
 export async function getChapterById(bookId: any, chapterId:  any ) {
    
     try {

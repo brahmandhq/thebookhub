@@ -8,7 +8,7 @@ import React from 'react'
 const page = async({params}: {params : {category: string}}) => {
     
 
-    const books = await getBooksByGenre(params.category)
+  const books = await getBooksByGenre(params.category)
    
 
 
