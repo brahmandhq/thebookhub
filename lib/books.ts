@@ -28,6 +28,24 @@ export const getBooksByGenreId = async (genreId: number) => {
     }
 };
 
+export const getGenreNameById = async (genreId: number) => {    
+    try {
+    const genre = await prisma.genre.findUnique({
+        where: {
+            id: genreId,
+        },
+        select: {
+            name: true,
+        },
+    });
+
+    return genre?.name ?? null;
+} catch (error) {
+    console.error("Error fetching genre name by ID:", error);
+    throw new Error("An error occurred while fetching the genre name by ID. Please try again.");
+}
+};
+
 export const getBooks = cache(async ({ page , limit = 10  } : { page?: string | number | null, limit?: string | number | null } = {}) => {
 
     try {

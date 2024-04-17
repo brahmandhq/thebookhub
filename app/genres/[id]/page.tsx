@@ -1,13 +1,17 @@
 import Books from '@/components/Books'
+import Header from '@/components/Header'
 import { PageWrapper } from '@/components/PageWrapper'
-import { getBooksByGenreId } from '@/lib/books'
+import { getBooksByGenreId, getGenreNameById } from '@/lib/books'
 import React from 'react'
 
 const page = async({params}: {params : {id: string}}) => {
 
-    console.log(params.id)
+   
+    const name = await getGenreNameById(parseInt(params.id))
     const getAllBooks = await getBooksByGenreId(parseInt(params.id))
-    console.log(getAllBooks)
+
+
+   
 
     if(!getAllBooks) return (
       <PageWrapper>
@@ -19,6 +23,9 @@ const page = async({params}: {params : {id: string}}) => {
     )
   return (
    <PageWrapper>
+   <Header >
+    <p className='pt-3 font-semibold text-gray-300'>You're browsing for {name ?  name : "No Genre Found"}</p>
+   </Header>
    <div className='m-2'>
    <div 
       className="
