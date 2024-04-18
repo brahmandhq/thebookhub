@@ -1,4 +1,4 @@
-// pages/api/books/index.ts
+
 import { prisma } from "@/utils/prisma";
 import { type NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(books);
   } catch (error) {
     console.error("Error fetching books:", error);
-    return NextResponse.json({ error: "An error occurred while fetching books." });
+    return NextResponse.json({ error: error });
   }
 }
 

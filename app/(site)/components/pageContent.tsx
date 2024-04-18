@@ -1,9 +1,5 @@
 "use client"
 import Books from "@/components/Books";
-import LoadMoreBooks from "@/components/InfiniteScroll/LoadMoreBooks";
-import useOnPlay from "@/hooks/useOnPlay";
-import { motion } from "framer-motion";
-import { Key } from "react";
 
 
 const PageContent: React.FC<any> = ({
