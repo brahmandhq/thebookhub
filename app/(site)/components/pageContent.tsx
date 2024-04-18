@@ -16,19 +16,16 @@ const PageContent: React.FC<any> = ({
 
 
 
-  if (books.length === 0) {
-    return (
-      <div className="mt-4 text-neutral-400">
-        No books available.
-      </div>
-    )
-  }
+  // if (books.length === 0) {
+  //   return (
+  //     <div className="mt-4 text-neutral-400">
+  //       No books available.
+  //     </div>
+  //   )
+  // }
 
   return ( 
-    <motion.div 
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y:0 }}
-    exit={{ opacity: 0, y: 20}} 
+    <div 
       className="
         grid 
         grid-cols-2 
@@ -51,7 +48,7 @@ const PageContent: React.FC<any> = ({
           data={item}
         />
       ))}
-    </motion.div>
+    </div>
   );
 }
  

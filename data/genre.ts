@@ -7,7 +7,7 @@ export const genres = [
     },
     {
         id: "2",
-        title: "Non-Fiction & Educational",
+        title: "Non-Fiction",
         slug:"non-fiction",
         img: "/genres/motivation.webp"
     },
