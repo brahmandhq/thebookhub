@@ -1,13 +1,9 @@
-"use client";
-
+"use client"
 import Books from "@/components/Books";
+import LoadMoreBooks from "@/components/InfiniteScroll/LoadMoreBooks";
 import useOnPlay from "@/hooks/useOnPlay";
 import { motion } from "framer-motion";
 import { Key } from "react";
-
-// import { Song } from "@/types";
-// import useOnPlay from "@/hooks/useOnPlay";
-// import SongItem from "@/components/SongItem";
 
 
 const PageContent: React.FC<any> = ({
@@ -33,10 +29,8 @@ const PageContent: React.FC<any> = ({
         md:grid-cols-3 
         lg:grid-cols-4 
         xl:grid-cols-4 
-        2xl:grid-cols-5 
         gap-4
         mt-4
-        mb-[10vh]
       "
     >
       {books.map((item: {
