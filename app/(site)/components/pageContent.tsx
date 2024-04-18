@@ -33,15 +33,12 @@ const PageContent: React.FC<any> = ({
         mt-4
       "
     >
-      {books.map((item: {
-        chapters: any; id: Key | null | undefined; 
-}) => (
-        <Books
-      
-          key={item.id} 
-          data={item}
-        />
-      ))}
+      {books.map((item: any, index: number) => (
+  <Books
+    key={index} 
+    data={item}
+  />
+))}
     </div>
   );
 }

@@ -118,13 +118,13 @@ export const getBooksByAuthorOrTitle = async (data: string | null | undefined) =
 export async function getBooksForClient({ page , limit = 10  } : { page?: string | number | null, limit?: string | number | null } = {} ) {
    
     try {
-        const searchParams = new URLSearchParams();
-    if (page) {
-      searchParams.append('page', page.toString());
-    }
-    searchParams.append('limit', limit!.toString());
+    //     const searchParams = new URLSearchParams();
+    // if (page) {
+    //   searchParams.append('page', page.toString());
+    // }
+    // searchParams.append('limit', limit!.toString());
 
-    const response = await fetch(`/api/books?${searchParams.toString()}`, {
+    const response = await fetch(`/api/books?page=${page!.toString()}&limit=${limit!.toString()}`, {
       method: 'GET',
     });
   
