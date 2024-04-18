@@ -21,9 +21,7 @@ const PageContent: React.FC<any> = ({
   // }
 
   return ( 
-    <>
     <div 
-  
       className="
         grid 
         grid-cols-2 
@@ -44,9 +42,7 @@ const PageContent: React.FC<any> = ({
           data={item}
         />
       ))}
-     
     </div>
-    </>
   );
 }
  

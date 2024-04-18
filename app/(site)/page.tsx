@@ -43,12 +43,13 @@ export default async function Home() {
               genres.map((genre) => 
               <ListItem 
               key={genre.id}
-                name={genre.title}             // name="Liked Songs" 
+                name={genre.title}             
                 image={genre.img} 
                 href={genre.slug}
               />
               )
             }
+         <MoreGenreButton leftIcon={true} title={"More Genres..."} route={"/genres"}/>
          <MoreGenreButton leftIcon={true} title={"More Genres..."} route={"/genres"}/>
           </div>
           </div>
@@ -63,10 +64,7 @@ export default async function Home() {
         </div>
         {books.length === 0 ? <Loader /> : <PageContent books={books} />}
       </div>
-
       <LoadMoreBooks />
-  
-      
     </div>
   );
 }
