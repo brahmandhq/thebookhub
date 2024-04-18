@@ -32,6 +32,92 @@ export const genres = [
  
 ]
 
+const moreGenres = [
+  {
+    id: "1",
+    title: "Children's Fiction > Action & Adventure",
+    slug:"actionandadventure",
+},
+{
+  id: "2",
+  title: "Children's Fiction > Animals & Nature",
+  slug:"animals",
+},
+
+{
+  id: "3",
+  title: "Children's Non-fiction > Science",
+  slug:"science",
+},
+{
+  id: "4",
+  title: "Classics (Greek & Latin Antiquity)",
+  slug:"greekandlatinantiquity",
+},
+{
+  id: "5",
+  title: "Classics (Greek & Latin Antiquity) > Asian Antiquity",
+  slug:"asianantiquity",
+},
+{
+  id: "6",
+  title: "Crime & Mystery Fiction",
+  slug:"crimeandmystery",
+},
+{
+  id: "7",
+  title: "Non-fiction > Travel & Geography",
+  slug:"travel",
+},
+{
+  id: "8",
+  title: "Non-fiction > Travel & Geography",
+  slug:"travel",
+},
+{
+  id: "9",
+  title: "Non-fiction > History",
+  slug:"hostory",
+},
+
+
+]
+
+export const history = [
+  "History",
+  "Social Science",
+  "Culture & Anthropology"
+]
+export const travel = [
+  "Travel & Geography"
+]
+export const crimeandmystery = [
+  "Crime & Mystery Fiction"
+]
+
+export const asianantiquity = [
+  "Asian Antiquity"
+]
+
+export const greekandlatinantiquity = [
+  "Classics (Greek & Latin Antiquity)",
+  "Greek & Latin Antiquity",
+
+]
+export const childrenscience = [
+  "Children's Non-fiction",
+  "Science",
+  "Astronomy",
+  "Physics & Mechanics"
+
+]
+
+
+export const animalsandnature = [
+  "Animals & Nature",
+
+
+]
 
 export const romanceGenre = [
   "romance",
@@ -164,6 +250,12 @@ export const LiteratureGenres = [
             "Games"
           ];
           
+          export const actionandadventure = [
+            "Action & Adventure",
+            "Dramatic Readings",
+
+            "Animals & Nature"
+          ]
       
 
   

@@ -240,7 +240,7 @@ export const getBooksByGenre = cache(async (category: string, offset: number = 0
     }
 })
 
-export const getUniqueGenres = async () => {
+export const getUniqueGenres = cache(async () => {
     try {
         const uniqueGenres = await prisma.genre.findMany({
             select: {
@@ -268,4 +268,4 @@ export const getUniqueGenres = async () => {
         console.error("Error fetching unique genres:", error);
         throw new Error("An error occurred while fetching unique genres. Please try again.");
     }
-};
+});
