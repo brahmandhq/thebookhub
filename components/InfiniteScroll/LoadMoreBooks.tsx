@@ -18,6 +18,7 @@ const LoadMoreBooks = () => {
             let newPage = page + 1
        
             const newBooks =  await getBooksForClient({page:newPage, limit: 24})
+            console.log(newBooks)
          
             if(newBooks.data.length < 24) setAllLoaded(true)
             setBooks((prev: any) => [...prev, ...newBooks.data])
