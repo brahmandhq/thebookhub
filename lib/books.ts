@@ -124,7 +124,7 @@ export async function getBooksForClient({ page , limit = 10  } : { page?: string
     // }
     // searchParams.append('limit', limit!.toString());
 
-    const response = await fetch(`/api/books?page=${page!.toString()}&limit=${limit!.toString()}`, {
+    const response = await fetch(`/api/books/${page!.toString()}/${limit!.toString()}`, {
       method: 'GET',
     });
   
