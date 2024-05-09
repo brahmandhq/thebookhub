@@ -27,6 +27,7 @@ const MoreGenreButton = ({
       relative 
       group 
       flex 
+      w-full
       items-center 
       rounded-md 
       overflow-hidden 
@@ -44,7 +45,7 @@ const MoreGenreButton = ({
       <div
         className={` flex flex-col gap-x-2 gap-y-1 items-start justify-center truncate`}
       >
-        <p className="font-medium text-xl"> {title}</p>
+        <p className="font-medium text-sm md:text-lg truncate lg:text-xl"> {title}</p>
         {bookCount && (
           <p className="font-extralight text-xs text-gray-200">
             Book Count:{" "}

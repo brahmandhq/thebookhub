@@ -56,7 +56,7 @@ const Books: React.FC<any> = ({ data }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }}
           exit={{ opacity: 0, x: 20 }}
-          className="object-cover"
+          className="object-cover w-full"
           src={data.imageLink ? data.imageLink : "/images/book1.jpg"}
           alt="Image"
         />
