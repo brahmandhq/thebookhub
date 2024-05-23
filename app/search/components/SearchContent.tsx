@@ -2,44 +2,59 @@
 
 import { GiDuration } from "react-icons/gi";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import ListItem from "@/components/ListItem";
+import { genres } from "@/data/genre";
+import MoreGenreButton from "@/components/MoreGenreButton";
 interface SearchContentProps {
   books: any;
 }
 
-const SearchContent: React.FC<SearchContentProps> = ({
-  books
-}) => {
+const SearchContent: React.FC<SearchContentProps> = ({ books }) => {
+  const router = useRouter();
 
+  const handleClick = (id: any) => {
+    router.push(`/${id}`);
+  };
 
-const router = useRouter()
-
-const handleClick = (id: any) => {
-  router.push(`/${id}`)
-}
-
-
-  if (books?.length === 0 || !books) {
+  if (!books) {
     return (
-      <div 
+      <div
         className="
-          flex 
-          flex-col 
-          gap-y-2 
-          w-full 
-          px-6 
-          text-neutral-400
-        "
+        grid 
+        grid-cols-1 
+        sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-4 mx-4"
       >
-        No Books Found.
+        {genres.map((genre) => (
+          <ListItem
+            key={genre.id}
+            name={genre.title}
+            image={genre.img}
+            href={genre.slug}
+          />
+        ))}
+        <MoreGenreButton
+          leftIcon={true}
+          title={"More Genres..."}
+          route={"/genres"}
+        />
       </div>
-    )
+    );
   }
 
-  return ( 
+  if (books?.length === 0) {
+    return (
+      <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">
+        No Books Found.
+      </div>
+    );
+  }
+
+  return (
     <div className="flex flex-col gap-y-2 w-full px-6">
       {books.map((book: any) => (
-        <div 
-          key={book.id} 
+        <div
+          key={book.id}
           className="
           flex 
           items-center
@@ -54,9 +69,11 @@ const handleClick = (id: any) => {
           outline-none 
 
         "
-        onClick={() => handleClick(book.id)}
-        > <div 
-        className="
+          onClick={() => handleClick(book.id)}
+        >
+          {" "}
+          <div
+            className="
           relative 
           flex
           justify-between
@@ -65,28 +82,27 @@ const handleClick = (id: any) => {
           
           w-full
         "
-      >
-      
-         
-        <div className="flex flex-col gap-y-1 ">
-        <p className="text-white  text-xl font-bold">{book.name}</p>
-        <p className="text-zinc-400 text-md  font-medium">
-          By {book.author.firstName + " " + book.author.lastName }
-        </p>
-      </div>
-      <div className="flex flex-col gap-y-1 items-end ">
-        <p className="text-white  text-sm font-light"> language: {book.language}</p>
-        <p className="text-zinc-400 text-md flex gap-2 items-center  font-medium">
-        <GiDuration/>  : { book.duration}
-        </p>
-      </div>
-     
-        </div>
+          >
+            <div className="flex flex-col gap-y-1 ">
+              <p className="text-white  text-xl font-bold">{book.name}</p>
+              <p className="text-zinc-400 text-md  font-medium">
+                By {book.author.firstName + " " + book.author.lastName}
+              </p>
+            </div>
+            <div className="flex flex-col gap-y-1 items-end ">
+              <p className="text-white  text-sm font-light">
+                {" "}
+                language: {book.language}
+              </p>
+              <p className="text-zinc-400 text-md flex gap-2 items-center  font-medium">
+                <GiDuration /> : {book.duration}
+              </p>
+            </div>
+          </div>
         </div>
       ))}
-     
     </div>
   );
-}
- 
+};
+
 export default SearchContent;
