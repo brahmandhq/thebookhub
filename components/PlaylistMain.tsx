@@ -1,12 +1,10 @@
 "use client";
 import React from "react";
-import PlayButton from "./PlayButton";
 import PlayBookPlaylist from "./PlayBookPlaylist";
 import useOnPlay from "@/hooks/useOnPlay";
 import { useSession } from "next-auth/react";
 import useAuthModal from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
 import usePlayValue from "@/store/play";
 
 const PlaylistMain = ({
@@ -23,12 +21,12 @@ const PlaylistMain = ({
   const { data: session } = useSession();
   const { onClose, onOpen } = useAuthModal();
   const router = useRouter();
-  const { isPlaying, setIsPlaying, toggleIsPlaying } = usePlayValue();
+  const { isPlaying, setIsPlaying } = usePlayValue();
 
   const onPlay = useOnPlay();
 
   const handleLogInFirst = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       onOpen();
     });
   };
@@ -49,7 +47,12 @@ const PlaylistMain = ({
   };
 
   const formatTime = (duration: string) => {
-    const [hours, minutes, seconds] = duration.split(":");
+    const parts = duration.split(":");
+    if (parts.length !== 3) {
+      return;
+    }
+
+    const [hours, minutes, seconds] = parts;
 
     if (hours !== "00") {
       return `${hours}:${minutes}:${seconds}`;
@@ -61,7 +64,7 @@ const PlaylistMain = ({
   };
 
   return (
-    <div className=" bg-zinc-900/30 mt-6 flex-1 p-6 blur-100">
+    <div className="bg-zinc-900/30 mt-6 flex-1 p-6 blur-100">
       <div
         className="flex relative gap-1 items-center"
         onClick={() => handleClick(data[0].id)}
@@ -70,13 +73,12 @@ const PlaylistMain = ({
       </div>
       <div className="px-6 pt-4">
         <table className="table-auto text-left min-w-full divide-y-2 divide-gray-500/30">
-          <thead className="">
+          <thead>
             <tr className="text-gray-300">
               <th className="font-normal px-4 py-2 whitespace-nowrap">#</th>
               <th className="font-normal px-4 py-2 whitespace-nowrap">
                 Chapter Name
               </th>
-
               <th className="font-normal px-4 py-2 whitespace-nowrap text-right">
                 <svg
                   viewBox="0 0 32 32"
