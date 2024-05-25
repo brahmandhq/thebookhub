@@ -14,7 +14,7 @@ import Link from "next/link";
 interface HeaderProps {
   children: React.ReactNode;
   className?: string;
-  search?:boolean
+  search?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({ children, className, search }) => {
@@ -62,7 +62,6 @@ const Header: React.FC<HeaderProps> = ({ children, className, search }) => {
             <RxCaretLeft className="text-white" size={35} />
           </button>
           <button
-          
             onClick={() => router.forward()}
             className={`
             ${search ? "hidden" : null}
@@ -129,20 +128,23 @@ const Header: React.FC<HeaderProps> = ({ children, className, search }) => {
           </div>
           <div className="flex relative items-center md:left-3 flex-col gap-2 ">
             <Link href={"/"}>
-            <img
-              src={"/bookhub.jpeg"}
-              alt="The Book Club Logo"
-              className="object-cover w-[32px] h-[32px] md:w-[42px] md:h-[42px] border rounded-full overflow-hidden"
-            /></Link>
+              <img
+                src={"/bookhub.jpeg"}
+                alt="The Book Club Logo"
+                className="object-cover w-[32px] h-[32px] md:w-[42px] md:h-[42px] border rounded-full overflow-hidden"
+              />
+            </Link>
           </div>
           <div className="flex flex-col justify-center">
-          <Link href={"/"}>
-            <p className="md:text-lg text-[0.6em] font-bold  font-serif">
-              The Book Hub
-            </p>
+            <Link href={"/"}>
+              <p className="md:text-lg text-[0.6em] font-bold  font-serif">
+                The Book Hub
+              </p>
             </Link>
-            <a href="/getdevkit.com" target="_blank">
-            <p className="text-zinc-300 md:text-xs text-[0.4em] underline hover:text-white ">By getdevkit.com</p>
+            <a href="https://getdevkit.com" target="_blank">
+              <p className="text-zinc-300 md:text-xs text-[0.4em] underline hover:text-white ">
+                By getdevkit.com
+              </p>
             </a>
           </div>
         </div>
