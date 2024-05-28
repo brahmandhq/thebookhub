@@ -11,21 +11,14 @@ interface ListItemProps {
   href: string;
 }
 
-const ListItem: React.FC<ListItemProps> = ({
-  image,
-  name,
-  href,
-}) => {
+const ListItem: React.FC<ListItemProps> = ({ image, name, href }) => {
   const router = useRouter();
 
-  
   const onClick = () => {
-  
-
     router.push(`category/${href}`);
   };
 
-  return ( 
+  return (
     <button
       onClick={onClick}
       className="
@@ -49,12 +42,11 @@ const ListItem: React.FC<ListItemProps> = ({
           src={image}
           fill
           alt="Image"
+          loading="lazy"
         />
       </div>
-      <p className="font-medium text-xl truncate py-5">
-        {name}
-      </p>
-      <div 
+      <p className="font-medium text-xl truncate py-5">{name}</p>
+      <div
         className="
           absolute 
           transition 
@@ -74,7 +66,7 @@ const ListItem: React.FC<ListItemProps> = ({
         <FaBookOpen className="text-black" />
       </div>
     </button>
-   );
-}
- 
+  );
+};
+
 export default ListItem;

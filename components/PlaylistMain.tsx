@@ -153,6 +153,7 @@ const PlaylistMain = ({
                   <td className="whitespace-nowrap px-4 py-2 flex gap-3 items-center">
                     <div className="h-10 w-10">
                       <img
+                        loading="lazy"
                         src={img ? img : "/images/book1.jpg"}
                         alt="The Nights"
                         className="rounded object-cover h-full w-full shadow-[5px_0_30px_0px_rgba(0,0,0,0.3)]"
