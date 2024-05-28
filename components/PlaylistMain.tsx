@@ -49,7 +49,7 @@ const PlaylistMain = ({
   const formatTime = (duration: string) => {
     const parts = duration.split(":");
     if (parts.length !== 3) {
-      return;
+      return "N/A";
     }
 
     const [hours, minutes, seconds] = parts;
@@ -64,14 +64,14 @@ const PlaylistMain = ({
   };
 
   return (
-    <div className="bg-zinc-900/30 mt-6 flex-1 p-6 blur-100">
+    <div className="bg-zinc-900/30 mt-6 px-0 sm:px-6 flex-1 blur-100">
       <div
         className="flex relative gap-1 items-center"
         onClick={() => handleClick(data[0].id)}
       >
         <PlayBookPlaylist />
       </div>
-      <div className="px-6 pt-4">
+      <div className="px-0 sm:px-6 pt-4">
         <table className="table-auto text-left min-w-full divide-y-2 divide-gray-500/30">
           <thead>
             <tr className="text-gray-300">
