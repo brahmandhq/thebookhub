@@ -64,7 +64,7 @@ const PlaylistMain = ({
   };
 
   return (
-    <div className="bg-zinc-900/30 mt-6 px-0 sm:px-6 flex-1 blur-100">
+    <div className="bg-zinc-900/30 mb-[7rem] pt-6 px-0 sm:px-6 flex-1 blur-100">
       <div
         className="flex relative gap-1 items-center"
         onClick={() => handleClick(data[0].id)}
