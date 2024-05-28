@@ -59,6 +59,7 @@ const Books: React.FC<any> = ({ data }) => {
           className="object-cover w-full"
           src={data.imageLink ? data.imageLink : "/images/book1.jpg"}
           alt="Image"
+          loading="lazy"
         />
       </div>
       <div className="flex flex-col items-start w-full pt-4 gap-y-1">
@@ -73,7 +74,7 @@ const Books: React.FC<any> = ({ data }) => {
           "
         >
           By{" "}
-          {(data.author?.firstName && data.author?.lastname )
+          {data.author?.firstName && data.author?.lastname
             ? data.author.firstName + " " + data.author.lastName
             : data.author?.firstName
             ? data.author?.firstName
@@ -92,16 +93,13 @@ const Books: React.FC<any> = ({ data }) => {
             gap-1
           "
         >
-          
-            {data?.genres?.map((genre: any, index: any) => (
-              <p>
-                {" "}
-                {genre.name} {index !== data.genres.length - 1 ? "," : null}
-              </p>
-            ))}
-          
+          {data?.genres?.map((genre: any, index: any) => (
+            <p>
+              {" "}
+              {genre.name} {index !== data.genres.length - 1 ? "," : null}
+            </p>
+          ))}
         </div>
-   
       </div>
       <div
         className="

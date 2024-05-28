@@ -8,11 +8,11 @@ import { PageWrapper } from "@/components/PageWrapper";
 export const revalidate = 0;
 
 interface SearchProps {
-  searchParams: { title: string }
-};
+  searchParams: { title: string };
+}
 
 const Search = async ({ searchParams }: SearchProps) => {
-  let books : any = []
+  let books: any = [];
   books = await getBooksByAuthorOrTitle(searchParams.title);
   return (
     <PageWrapper
@@ -27,17 +27,13 @@ const Search = async ({ searchParams }: SearchProps) => {
     >
       <Header className="from-bg-neutral-900" search={true}>
         <div className="mb-2 flex flex-col gap-y-6">
-          <h1 className="text-white text-3xl font-semibold">
-            Search
-          </h1>
+          <h1 className="text-white text-3xl font-semibold">Search</h1>
           <SearchInput />
         </div>
       </Header>
       <SearchContent books={books} />
-  
-
     </PageWrapper>
   );
-}
+};
 
 export default Search;

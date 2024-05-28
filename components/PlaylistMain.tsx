@@ -49,7 +49,7 @@ const PlaylistMain = ({
   const formatTime = (duration: string) => {
     const parts = duration.split(":");
     if (parts.length !== 3) {
-      return;
+      return "N/A";
     }
 
     const [hours, minutes, seconds] = parts;
@@ -64,14 +64,14 @@ const PlaylistMain = ({
   };
 
   return (
-    <div className="bg-zinc-900/30 mt-6 flex-1 p-6 blur-100">
+    <div className="bg-zinc-900/30 mb-[7rem] pt-6 px-0 sm:px-6 flex-1 blur-100">
       <div
         className="flex relative gap-1 items-center"
         onClick={() => handleClick(data[0].id)}
       >
         <PlayBookPlaylist />
       </div>
-      <div className="px-6 pt-4">
+      <div className="px-0 sm:px-6 pt-4">
         <table className="table-auto text-left min-w-full divide-y-2 divide-gray-500/30">
           <thead>
             <tr className="text-gray-300">
@@ -153,6 +153,7 @@ const PlaylistMain = ({
                   <td className="whitespace-nowrap px-4 py-2 flex gap-3 items-center">
                     <div className="h-10 w-10">
                       <img
+                        loading="lazy"
                         src={img ? img : "/images/book1.jpg"}
                         alt="The Nights"
                         className="rounded object-cover h-full w-full shadow-[5px_0_30px_0px_rgba(0,0,0,0.3)]"

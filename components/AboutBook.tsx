@@ -32,6 +32,7 @@ const AboutBook = ({ data }: { data: any }) => {
     <motion.div className="flex flex-col items-center md:flex-row md:items-stretch gap-8 p-6">
       <div className="h-52 w-52 flex-none">
         <img
+          loading="lazy"
           src={data.imageLink ? data.imageLink : "/images/book1.jpg"}
           className="object-cover h-full w-full shadow-[5px_0_30px_0px_rgba(0,0,0,0.3)]"
         />

@@ -51,7 +51,7 @@ const SearchContent: React.FC<SearchContentProps> = ({ books }) => {
   }
 
   return (
-    <div className="flex flex-col gap-y-2 w-full px-6">
+    <div className="flex flex-col gap-y-2 w-full px-6 mb-[7rem]">
       {books.map((book: any) => (
         <div
           key={book.id}
