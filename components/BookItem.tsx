@@ -8,27 +8,27 @@ import Image from "next/image";
 
 interface BookItemProps {
   data: any;
-//   onClick?: (id: string) => void;
+  //   onClick?: (id: string) => void;
 }
 
 const BookItem: React.FC<BookItemProps> = ({
   data,
-//   onClick,
+  //   onClick,
 }) => {
-//   const player = usePlayer();
-//   const imageUrl = useLoadImage(data);
+  //   const player = usePlayer();
+  //   const imageUrl = useLoadImage(data);
 
-//   const handleClick = () => {
-//     if (onClick) {
-//       return onClick(data.id);
-//     }
-  
-//     return player.setId(data.id);
-//   };
+  //   const handleClick = () => {
+  //     if (onClick) {
+  //       return onClick(data.id);
+  //     }
 
-  return ( 
+  //     return player.setId(data.id);
+  //   };
+
+  return (
     <div
-    //   onClick={handleClick}
+      //   onClick={handleClick}
       className="
         flex 
         items-center 
@@ -44,7 +44,7 @@ const BookItem: React.FC<BookItemProps> = ({
         outline-none 
       "
     >
-      <div 
+      <div
         className="
           relative 
           rounded-md 
@@ -53,7 +53,6 @@ const BookItem: React.FC<BookItemProps> = ({
         "
       >
         <img
-       
           src={data.img || "https://via.placeholder.com/150"}
           alt="MediaItem"
           className="object-cover"
@@ -67,6 +66,6 @@ const BookItem: React.FC<BookItemProps> = ({
       </div>
     </div>
   );
-}
- 
+};
+
 export default BookItem;

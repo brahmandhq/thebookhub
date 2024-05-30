@@ -15,7 +15,7 @@ const page = async () => {
           Browsing Genres...{" "}
         </h1>
       </Header>
-      <div className="mx-2 flex flex-col gap-2">
+      <div className="mx-2 flex flex-col gap-2 mb-[6rem]">
         {getAllGenres.map((genre, index) => (
           <MoreGenreButton
             key={index}
